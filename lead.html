@@ -540,10 +540,10 @@ input[type=range]:hover::-webkit-slider-thumb{box-shadow:0 0 0 4px rgba(201,151,
 </style>
 
 <!-- Nav injected by nav.js -->
-
+<script src="nav.js"></script>
 
 <!-- Nav injected by nav.js -->
-
+<script src="nav.js"></script>
 
 <!-- ===== HERO ===== -->
 <section class="hero">
@@ -1014,7 +1014,7 @@ let cmsData = null;
 const SPECS={'Family Medicine':{chronPct:65},'Internal Medicine':{chronPct:72},'Cardiology':{chronPct:82},'Endocrinology':{chronPct:88},'Geriatric Medicine':{chronPct:92},'Nephrology':{chronPct:90},'_default':{chronPct:68}};
 function getSpec(s){for(const k in SPECS){if(k!=='_default'&&s.toLowerCase().indexOf(k.toLowerCase())!==-1)return SPECS[k];}return SPECS['_default'];}
 
-const AWV_RATE=155,CCM_MO=60,RPM_MO=84,TCM_RATE=230,BHI_MO=52,PER_CAPITA=12900;
+const AWV_RATE=282,CCM_MO=62,RPM_MO=84,TCM_RATE=260,BHI_MO=52,PER_CAPITA=12900;
 const CMS_SVC='92396110-2aed-4d63-a6a2-5d6207d46a29',CMS_AGG='8889d81e-2ee7-448f-8713-f071038289b5',CMS_BASE='https://data.cms.gov/data-api/v1/dataset/';
 const HCPCS_MAP={awv:['G0438','G0439'],ccm:['99490','99491'],rpm:['99453','99454','99457','99458'],tcm:['99495','99496'],bhi:['99484','99492','99493']};
 
@@ -1151,6 +1151,5 @@ const reveals=document.querySelectorAll('.reveal');
 const io=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');});},{threshold:0.1});
 reveals.forEach(el=>io.observe(el));
 </script>
-<script src="nav.js"></script>
 </body>
 </html>

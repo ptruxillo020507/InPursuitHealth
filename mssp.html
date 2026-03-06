@@ -540,7 +540,7 @@ input[type=range]:hover::-webkit-slider-thumb{box-shadow:0 0 0 4px rgba(201,151,
 </style>
 
 <!-- Nav injected by nav.js -->
-
+<script src="nav.js"></script>
 
 <!-- ===== HERO ===== -->
 <section class="hero">
@@ -742,13 +742,13 @@ input[type=range]:hover::-webkit-slider-thumb{box-shadow:0 0 0 4px rgba(201,151,
 
         <div class="slider-row"><span class="slider-label">Annual Wellness Visits (AWV)</span><span class="slider-val" id="awvVal">30%</span></div>
         <input type="range" id="awvSlider" min="10" max="65" step="1" value="30" oninput="calc()">
-        <div style="font-size:9px;color:rgba(78,140,255,0.25);margin-top:2px;">Avg: 28%. Target: 45-60%. $155/visit (blended initial/subsequent).</div>
+        <div style="font-size:9px;color:rgba(78,140,255,0.25);margin-top:2px;">Avg: 28%. Target: 45-60%. $282/visit.</div>
         <div id="awvNote" style="font-size:9px;color:rgba(201,151,0,0.4);margin-top:2px;"></div>
         <div style="height:6px;"></div>
 
         <div class="slider-row"><span class="slider-label">CCM Enrollment (of chronic panel)</span><span class="slider-val" id="ccmVal">8%</span></div>
         <input type="range" id="ccmSlider" min="2" max="30" step="1" value="8" oninput="calc()">
-        <div style="font-size:9px;color:rgba(78,140,255,0.25);margin-top:2px;">Avg: 5%. Target: 15-25%. $60/mo.</div>
+        <div style="font-size:9px;color:rgba(78,140,255,0.25);margin-top:2px;">Avg: 5%. Target: 15-25%. $62/mo.</div>
         <div id="ccmNote" style="font-size:9px;color:rgba(201,151,0,0.4);margin-top:2px;"></div>
         <div style="height:6px;"></div>
 
@@ -760,7 +760,7 @@ input[type=range]:hover::-webkit-slider-thumb{box-shadow:0 0 0 4px rgba(201,151,
 
         <div class="slider-row"><span class="slider-label">TCM Capture Rate</span><span class="slider-val" id="tcmVal">3%</span></div>
         <input type="range" id="tcmSlider" min="0" max="12" step="1" value="3" oninput="calc()">
-        <div style="font-size:9px;color:rgba(78,140,255,0.25);margin-top:2px;">Post-discharge within 14 days. $230 weighted avg.</div>
+        <div style="font-size:9px;color:rgba(78,140,255,0.25);margin-top:2px;">Post-discharge within 14 days. $260 avg.</div>
         <div id="tcmNote" style="font-size:9px;color:rgba(201,151,0,0.4);margin-top:2px;"></div>
         <div style="height:6px;"></div>
 
@@ -927,7 +927,7 @@ input[type=range]:hover::-webkit-slider-thumb{box-shadow:0 0 0 4px rgba(201,151,
         <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;opacity:0.5;"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
         <div style="flex:1;">
           <div style="font-family:'Instrument Serif',serif;font-size:13px;color:var(--white);margin-bottom:2px;">Estimation Methodology &amp; Data Sources</div>
-          <div style="font-size:9px;color:rgba(255,255,255,0.18);line-height:1.6;">FFS rates: 2025 Medicare PFS (AWV G0438 $160 / G0439 $127, blended $155; CCM 99490 $60/mo; RPM 99453-58 ~$84/mo composite; TCM 99495 $194 / 99496 $262, wtd avg $230; BHI 99484 $52/mo). TCOC levers: MedPAC Data Book 2024 (admissions, SNF, readmissions), AHRQ PQI composites (avoidable admissions), NYUED algorithm (avoidable ED), CMS-HCC risk model (RAF). Sharing rates per 42 CFR 425.605/610. MSR: 2.0% two-sided, 2.0-3.9% one-sided by population size. NPI billing data from CMS Provider Utilization PUF CY2023.</div>
+          <div style="font-size:9px;color:rgba(255,255,255,0.18);line-height:1.6;">FFS rates: 2025 Medicare PFS (AWV G0438/G0439 $282, CCM 99490 $62/mo, RPM 99453-58 ~$84/mo, TCM 99495/96 avg $260, BHI 99484 $52/mo). TCOC levers: MedPAC Data Book 2024 (admissions, SNF, readmissions), AHRQ PQI composites (avoidable admissions), NYUED algorithm (avoidable ED), CMS-HCC risk model (RAF). Sharing rates per 42 CFR 425.605/610. MSR: 2.0% two-sided, 2.0-3.9% one-sided by population size. NPI billing data from CMS Provider Utilization PUF CY2023.</div>
         </div>
         <a href="InPursuit_MSSP_Methodology.pdf" download style="padding:8px 18px;background:rgba(201,151,0,0.08);border:1px solid rgba(201,151,0,0.15);border-radius:4px;font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold);text-decoration:none;white-space:nowrap;flex-shrink:0;">Download PDF</a>
       </div>
@@ -1178,7 +1178,7 @@ input[type=range]:hover::-webkit-slider-thumb{box-shadow:0 0 0 4px rgba(201,151,
 
     <div class="faq-item reveal" onclick="this.classList.toggle('open')">
       <div class="faq-q"><span class="faq-q-text">What methodology does the estimator use? Can my CFO review it?</span><div class="faq-q-icon"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></div></div>
-      <div class="faq-a"><div class="faq-a-inner">The estimator uses a <strong>bottom-up, category-level build</strong> — not a single "savings rate" assumption. Each FFS program uses CMS-published 2025 Medicare Physician Fee Schedule reimbursement rates (AWV G0438 at $160, G0439 at $127, blended $155; CCM 99490 at $60/mo; RPM 99453-99458 composite at ~$84/mo; TCM 99495 $194 / 99496 $262, weighted average $230; BHI 99484 at $52/mo). Each TCOC savings lever uses published utilization baselines from the MedPAC Data Book 2024, AHRQ Prevention Quality Indicators, CMS claims data, and peer-reviewed ACO performance research from AJMC and Health Affairs. Sharing rates follow 42 CFR 425.605 (BASIC) and 425.610 (ENHANCED). MSR corridors are population-size-adjusted per CMS specifications. When a provider enters their NPI, we pull their <strong>actual CMS billing data</strong> (CY2023 Provider Utilization PUF) to lock inputs to reality. The methodology PDF is available for download directly from the estimator panel, and we provide a detailed walkthrough during the discovery call. We encourage your finance team to stress-test the model.</div></div>
+      <div class="faq-a"><div class="faq-a-inner">The estimator uses a <strong>bottom-up, category-level build</strong> — not a single "savings rate" assumption. Each FFS program uses CMS-published 2025 Medicare Physician Fee Schedule reimbursement rates (AWV G0438/G0439 at $282, CCM 99490 at $62/mo, RPM 99453-99458 composite at ~$84/mo, TCM 99495/99496 weighted average at $260, BHI 99484 at $52/mo). Each TCOC savings lever uses published utilization baselines from the MedPAC Data Book 2024, AHRQ Prevention Quality Indicators, CMS claims data, and peer-reviewed ACO performance research from AJMC and Health Affairs. Sharing rates follow 42 CFR 425.605 (BASIC) and 425.610 (ENHANCED). MSR corridors are population-size-adjusted per CMS specifications. When a provider enters their NPI, we pull their <strong>actual CMS billing data</strong> (CY2023 Provider Utilization PUF) to lock inputs to reality. The methodology PDF is available for download directly from the estimator panel, and we provide a detailed walkthrough during the discovery call. We encourage your finance team to stress-test the model.</div></div>
     </div>
 
     <div class="faq-item reveal" onclick="this.classList.toggle('open')">
@@ -1228,7 +1228,7 @@ const SPECS={'Family Medicine':{chronPct:65,panel:2200},'Internal Medicine':{chr
 function getSpec(s){for(const k in SPECS){if(k!=='_default'&&s.toLowerCase().indexOf(k.toLowerCase())!==-1)return SPECS[k];}return SPECS['_default'];}
 
 // ══ FFS RATES (2025 Medicare PFS) ══
-const AWV_RATE=155,CCM_MO=60,RPM_MO=84,TCM_RATE=230,BHI_MO=52;
+const AWV_RATE=282,CCM_MO=62,RPM_MO=84,TCM_RATE=260,BHI_MO=52;
 
 // ══ SLIDER FILL ══
 function setFill(el){const mn=parseFloat(el.min),mx=parseFloat(el.max),v=parseFloat(el.value);el.style.setProperty('--fill',((v-mn)/(mx-mn))*100+'%');}
@@ -1484,6 +1484,5 @@ const reveals=document.querySelectorAll('.reveal');
 const io=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');});},{threshold:0.1});
 reveals.forEach(el=>io.observe(el));
 </script>
-<script src="nav.js"></script>
 </body>
 </html>

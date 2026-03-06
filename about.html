@@ -53,74 +53,22 @@ body {
 }
 
 /* ===== TOP BAR / NAV ===== */
-.top-bar {
-  background: var(--navy-deep);
-  border-bottom: 1px solid rgba(197,164,78,0.2);
-  position: fixed; top: 0; left: 0; right: 0;
-  z-index: 1000;
-  transition: box-shadow 0.3s ease;
-}
-.top-bar.scrolled { box-shadow: 0 4px 30px rgba(0,0,0,0.4); }
-.top-bar-inner {
-  max-width: 1400px; margin: 0 auto; padding: 0 40px;
-  display: flex; justify-content: space-between; align-items: center; height: 64px;
-}
-.top-bar-brand { display: flex; align-items: center; text-decoration: none; cursor: pointer; }
-.top-bar-wordmark {
-  font-family: 'Instrument Serif', serif;
-  font-size: 22px; color: var(--gold); letter-spacing: 1px; line-height: 1;
-}
-.top-bar-nav { display: flex; align-items: center; gap: 0; }
-.nav-item {
-  position: relative; padding: 20px 14px;
-  font-size: 11px; font-weight: 500; letter-spacing: 1.5px;
-  text-transform: uppercase; color: rgba(255,255,255,0.6);
-  text-decoration: none; transition: color 0.3s ease;
-  cursor: pointer; background: none; border: none; font-family: inherit;
-}
-.nav-item:hover, .nav-item.active { color: var(--gold); }
-.nav-item::after {
-  content: ''; position: absolute;
-  bottom: 0; left: 50%; transform: translateX(-50%);
-  width: 0; height: 2px; background: var(--gold); transition: width 0.3s ease;
-}
-.nav-item:hover::after, .nav-item.active::after { width: 60%; }
 
-.nav-dropdown { position: relative; }
-.nav-dropdown-menu {
-  position: absolute; top: 100%; left: 50%;
-  transform: translateX(-50%) translateY(8px);
-  background: var(--navy-mid);
-  border: 1px solid rgba(197,164,78,0.15);
-  border-radius: 4px; padding: 8px 0; min-width: 240px;
-  opacity: 0; visibility: hidden; transition: all 0.3s ease;
-  box-shadow: 0 12px 40px rgba(0,0,0,0.5);
-}
-.nav-dropdown:hover .nav-dropdown-menu {
-  opacity: 1; visibility: visible; transform: translateX(-50%) translateY(0);
-}
-.nav-dropdown-item {
-  display: block; padding: 12px 24px;
-  font-size: 12px; font-weight: 500; letter-spacing: 1px;
-  text-transform: uppercase; color: rgba(255,255,255,0.6);
-  text-decoration: none; transition: all 0.2s ease;
-}
-.nav-dropdown-item:hover {
-  color: var(--gold); background: rgba(197,164,78,0.05);
-}
-.nav-dropdown-item .sub-desc {
-  display: block; font-size: 10px; letter-spacing: 0.5px;
-  text-transform: none; color: rgba(255,255,255,0.3); margin-top: 2px;
-}
 
-.nav-toggle {
-  display: none; background: none; border: none;
-  width: 32px; height: 32px; cursor: pointer; position: relative;
-}
-.nav-toggle span {
-  display: block; width: 22px; height: 2px;
-  background: var(--gold); position: absolute; left: 5px; transition: all 0.3s ease;
-}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 .nav-toggle span:nth-child(1) { top: 8px; }
 .nav-toggle span:nth-child(2) { top: 15px; }
 .nav-toggle span:nth-child(3) { top: 22px; }
@@ -349,18 +297,8 @@ body {
   .stats-row { grid-template-columns: repeat(2, 1fr); }
 }
 @media (max-width: 768px) {
-  .top-bar-nav { display: none; }
-  .top-bar-nav.open {
-    display: flex; flex-direction: column;
-    position: absolute; top: 64px; left: 0; right: 0;
-    background: var(--navy-deep); border-bottom: 1px solid rgba(197,164,78,0.1);
-    padding: 8px 0;
-  }
-  .top-bar-nav.open .nav-item { padding: 14px 24px; }
-  .top-bar-nav.open .nav-dropdown-menu {
-    position: static; transform: none; opacity: 1; visibility: visible;
-    box-shadow: none; border: none; background: rgba(17,34,64,0.3);
-  }
+  .top-bar-nav.open 
+  .top-bar-nav.open 
   .nav-toggle { display: block; }
   .page-hero { padding: 120px 24px 60px; }
   .section { padding: 60px 24px; }
@@ -368,9 +306,130 @@ body {
   .stats-row { grid-template-columns: 1fr 1fr; }
   .footer-inner { flex-direction: column; gap: 12px; }
 }
+
+
+:root {
+  --navy: #0A1628;
+  --navy-deep: #060E1A;
+  --gold: #C5A44E;
+  --gold-light: #D4B96A;
+  --gold-bright: #E8D48B;
+}
+
+
+
+
+
+
+
+
+.nav-toggle span:nth-child(1) { top: 8px; }
+.nav-toggle span:nth-child(2) { top: 15px; }
+.nav-toggle span:nth-child(3) { top: 22px; }
+@media (max-width: 768px) {
+  .nav-toggle { display: block; }
+  }
+
+
+/* ===== UNIVERSAL NAV ===== */
+#iph-topbar{background:#060E1A;border-bottom:1px solid rgba(197,164,78,0.2);position:fixed;top:0;left:0;right:0;z-index:9999;transition:box-shadow 0.3s ease;font-family:'Instrument Sans','DM Sans',sans-serif}
+#iph-topbar.scrolled{box-shadow:0 4px 30px rgba(0,0,0,0.5)}
+#iph-topbar-inner{max-width:1400px;margin:0 auto;padding:0 40px;display:flex;justify-content:space-between;align-items:center;height:64px}
+#iph-brand-group{display:flex;align-items:center;gap:10px}
+#iph-wordmark{font-family:'Instrument Serif',Georgia,serif;font-size:22px;color:#C5A44E;letter-spacing:1px;line-height:1;white-space:nowrap;text-decoration:none}
+#iph-brand-divider{color:rgba(255,255,255,0.2);font-size:14px}
+#iph-maha{font-size:11px;font-weight:500;letter-spacing:0.5px;color:rgba(255,255,255,0.45);white-space:nowrap}
+#iph-nav{display:flex;align-items:center;gap:4px}
+.iph-nav-item{padding:20px 14px;font-size:11px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,0.6);text-decoration:none;position:relative;transition:color 0.3s;white-space:nowrap}
+.iph-nav-item:hover{color:#C5A44E}
+.iph-nav-item::after{content:'';position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:0;height:2px;background:#C5A44E;transition:width 0.3s}
+.iph-nav-item:hover::after{width:60%}
+.iph-dropdown{position:relative;display:inline-flex;align-items:center}
+.iph-dropdown-toggle{display:inline-flex;align-items:center;gap:5px}
+.iph-caret{font-size:8px;opacity:0.5;transition:transform 0.25s,opacity 0.25s}
+.iph-dropdown:hover .iph-caret{transform:rotate(180deg);opacity:1}
+.iph-dropdown-menu{display:none;position:absolute;top:calc(100% - 2px);left:0;background:#0B1628;border:1px solid rgba(197,164,78,0.15);border-radius:0 0 8px 8px;box-shadow:0 20px 60px rgba(0,0,0,0.5);min-width:260px;z-index:10000;overflow:hidden}
+.iph-dropdown:hover .iph-dropdown-menu{display:block}
+.iph-dropdown-menu a,.iph-dropdown-menu span{display:block;padding:13px 20px;font-size:11px;font-weight:500;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,0.5);text-decoration:none;border-bottom:1px solid rgba(197,164,78,0.06);transition:all 0.2s;white-space:nowrap}
+.iph-dropdown-menu a:last-child,.iph-dropdown-menu span:last-child{border-bottom:none}
+.iph-dropdown-menu a:hover,.iph-dropdown-menu span:hover{color:#C5A44E;background:rgba(197,164,78,0.05);padding-left:26px}
+#iph-cta{display:inline-flex;align-items:center;margin-left:8px;padding:8px 18px;background:#C5A44E;color:#060E1A;font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;text-decoration:none;border-radius:4px;transition:all 0.3s;white-space:nowrap}
+#iph-cta:hover{background:#E8D48B;transform:translateY(-1px)}
+#iph-toggle{display:none;background:none;border:none;width:32px;height:32px;cursor:pointer;position:relative;flex-shrink:0}
+#iph-toggle span{display:block;width:22px;height:2px;background:#C5A44E;position:absolute;left:5px;transition:all 0.3s}
+#iph-toggle span:nth-child(1){top:8px}
+#iph-toggle span:nth-child(2){top:15px}
+#iph-toggle span:nth-child(3){top:22px}
+@media(max-width:1100px){#iph-topbar-inner{padding:0 20px}#iph-nav{display:none}#iph-toggle{display:block}
+#iph-nav.open{display:flex;flex-direction:column;align-items:flex-start;position:absolute;top:64px;left:0;right:0;background:#060E1A;border-bottom:1px solid rgba(197,164,78,0.2);padding:12px 0;max-height:calc(100vh - 64px);overflow-y:auto}
+#iph-nav.open .iph-nav-item{padding:13px 24px;width:100%}
+#iph-nav.open .iph-dropdown{width:100%;flex-direction:column;align-items:flex-start}
+#iph-nav.open .iph-dropdown-menu{display:none;position:static;box-shadow:none;border:none;border-radius:0;min-width:100%;background:rgba(197,164,78,0.04);border-top:1px solid rgba(197,164,78,0.08)}
+#iph-nav.open .iph-dropdown.open .iph-dropdown-menu{display:block}
+#iph-nav.open .iph-dropdown-menu a,#iph-nav.open .iph-dropdown-menu span{padding:11px 36px}
+#iph-cta{margin-left:24px;margin-top:4px;margin-bottom:14px}}
+
+.site-footer{background:#060E1A;border-top:1px solid rgba(197,164,78,0.1);padding:48px 40px 32px;margin-top:80px}
+.footer-inner{max-width:1200px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px}
+.footer-wordmark{font-family:'Instrument Serif',serif;font-size:18px;color:#C5A44E;letter-spacing:1px}
+.footer-legal{font-size:11px;color:rgba(255,255,255,0.3)}
+.footer-nav-grid{max-width:1200px;margin:24px auto 0;padding-top:24px;border-top:1px solid rgba(197,164,78,0.08);display:flex;gap:64px;flex-wrap:wrap}
+.footer-col-label{font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(197,164,78,0.5);margin-bottom:14px}
+.footer-col{display:flex;flex-direction:column;gap:11px}
+.footer-col a{font-size:11px;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,0.3);text-decoration:none;transition:color 0.3s}
+.footer-col a:hover{color:#C5A44E}
+.footer-disclaimer{max-width:1200px;margin:24px auto 0;font-size:10px;color:rgba(255,255,255,0.15);line-height:1.6}
+.footer-tagline{text-align:center;margin-top:24px;font-family:'Instrument Serif',serif;font-size:13px;color:rgba(197,164,78,0.3);letter-spacing:2px}
+
 </style>
 </head>
 <body>
+<!-- ===== UNIVERSAL NAV ===== -->
+<header id="iph-topbar">
+  <div id="iph-topbar-inner">
+    <div id="iph-brand-group">
+      <a id="iph-wordmark" href="index.html">InPursuit Health</a>
+      <span id="iph-brand-divider">|</span>
+      <span id="iph-maha">MAHA Policy Alignment</span>
+    </div>
+    <nav id="iph-nav">
+      <div class="iph-dropdown">
+        <a class="iph-nav-item iph-dropdown-toggle" href="tetra.html">TETRA <span class="iph-caret">&#9660;</span></a>
+        <div class="iph-dropdown-menu">
+          <span style="cursor:default;">TETRA Aegis&trade;</span>
+          <span style="cursor:default;">TETRA Sentinel&trade;</span>
+        </div>
+      </div>
+      <div class="iph-dropdown">
+        <span class="iph-nav-item iph-dropdown-toggle" style="cursor:default;">For You <span class="iph-caret">&#9660;</span></span>
+        <div class="iph-dropdown-menu">
+          <span style="cursor:default;">For Your Pets</span>
+        </div>
+      </div>
+      <div class="iph-dropdown">
+        <span class="iph-nav-item iph-dropdown-toggle" style="cursor:default;">For VBC Providers <span class="iph-caret">&#9660;</span></span>
+        <div class="iph-dropdown-menu">
+          <span style="cursor:default;">ACCESS Model Offer</span>
+        </div>
+      </div>
+      <span class="iph-nav-item" style="cursor:default;">MyPursuit</span>
+      <span class="iph-nav-item" style="cursor:default;">Data Oath</span>
+      <a class="iph-nav-item" href="partner-network.html">Partner Network</a>
+      <span id="iph-cta" style="cursor:default;">Invest</span>
+    </nav>
+    <button id="iph-toggle" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+
+
+<!-- Preloader -->
+<div class="preloader" id="preloader">
+  <div class="preloader-wordmark">INPURSUIT HEALTH</div>
+</div>
+
+
+
 <!-- Page Hero -->
 <section class="page-hero">
   <div class="page-hero-inner">
@@ -480,20 +539,70 @@ body {
     <p class="invest-overline reveal">Investor Relations</p>
     <h2 class="invest-headline reveal">Be Part of the<br>Healthcare <em>Revolution.</em></h2>
     <p class="invest-desc reveal">InPursuit Health is building the infrastructure layer for the next era of American healthcare. If you&rsquo;re an accredited investor interested in the future of health technology, we&rsquo;d love to start a conversation.</p>
-    <a class="btn-gold reveal" href="/cdn-cgi/l/email-protection#137a7d65766067537a7d63666160667a677b76727f677b3d707c7e2c606671797670672e5a7d657660677e767d673621235a7d62667a616a">Inquire About Investing &rarr;</a>
+    <a class="btn-gold reveal" href="/cdn-cgi/l/email-protection#e881869e8d9b9ca8a186b89d9a9b9d819ca08d89849c80c68b8785d79b9d8a828d8b9cd5a1869e8d9b9c858d869ccddad8a186999d819a91">Inquire About Investing &rarr;</a>
   </div>
 </section>
 
 <!-- Footer -->
 
+<footer class="site-footer">
+  <div class="footer-inner">
+    <span class="footer-wordmark">InPursuit Health</span>
+    <span class="footer-legal">&copy; 2026 InPursuit Health, LLC. All rights reserved.</span>
+  </div>
+  <div class="footer-nav-grid">
+    <div>
+      <div class="footer-col-label">Policy</div>
+      <div class="footer-col">
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="terms.html">Terms of Service</a>
+        <a href="security-center.html">Security Center</a>
+      </div>
+    </div>
+    <div>
+      <div class="footer-col-label">Company</div>
+      <div class="footer-col">
+        <a href="about.html">About Us</a>
+        <a href="careers.html">Careers</a>
+        <a href="contact.html">Contact</a>
+      </div>
+    </div>
+  </div>
+  <p class="footer-disclaimer">InPursuit Health is a veteran-owned healthcare technology company providing data interoperability and orchestration infrastructure. The information on this site is for informational purposes only and does not constitute medical advice. TETRA is a registered technology of InPursuit Health, LLC.</p>
+  <div class="footer-tagline">The Platform Beneath the AI&trade;</div>
+</footer>
 
-
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
 <script>
-  // Reveal animations
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => { if (entry.isIntersecting) entry.target.classL
+// Nav
+window.addEventListener('scroll', function() {
+  document.getElementById('iph-topbar').classList.toggle('scrolled', window.scrollY > 10);
+});
+document.getElementById('iph-toggle').addEventListener('click', function() {
+  document.getElementById('iph-nav').classList.toggle('open');
+});
+document.querySelectorAll('.iph-dropdown-toggle').forEach(function(t) {
+  t.addEventListener('click', function(e) {
+    if (window.innerWidth <= 1100) {
+      e.preventDefault();
+      var p = this.closest('.iph-dropdown');
+      var was = p.classList.contains('open');
+      document.querySelectorAll('.iph-dropdown').forEach(function(d) { d.classList.remove('open'); });
+      if (!was) p.classList.add('open');
+    }
+  });
+});
+// Preloader dismiss
+window.addEventListener('load', function() {
+  setTimeout(function() {
+    var p = document.getElementById('preloader');
+    if (p) { p.classList.add('hidden'); p.classList.add('done'); }
+  }, 600);
+});
+// Reveal animations
+var revObs = new IntersectionObserver(function(entries) {
+  entries.forEach(function(e) { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.15 });
+document.querySelectorAll('.reveal').forEach(function(el) { revObs.observe(el); });
 </script>
-<script src="nav.js"></script>
 </body>
 </html>

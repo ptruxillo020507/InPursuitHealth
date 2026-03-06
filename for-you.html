@@ -2579,7 +2579,28 @@ body {
 </div>
 
 <!-- Top Bar -->
-
+<header class="top-bar" id="topBar">
+  <div class="top-bar-inner">
+    <div style="display: flex; align-items: center; gap: 8px;">
+      <a class="top-bar-brand" href="index.html">
+        <div class="top-bar-wordmark">InPursuit Health</div>
+      </a>
+      <span style="color: rgba(255,255,255,0.4); margin: 0 4px;">|</span>
+      <a href="maha-policy-alighnment.html" style="font-size: 13px; color: var(--white); text-decoration: none; letter-spacing: 0.5px; transition: color 0.3s ease; white-space: nowrap; font-weight: 500;" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='var(--white)'">MAHA Policy Alignment</a>
+    </div>
+    <nav class="top-bar-nav" id="mainNav">
+      <a class="nav-item" href="tetra.html">TETRA</a>
+      <a class="nav-item active" href="for-you.html">For You</a>
+      <a class="nav-item" href="for-providers.html">For Providers</a>
+      <a class="nav-item nav-item-live" href="data-security-ai.html"><span class="nav-live-dot"></span>Data Security &amp; AI</a>
+      <a class="nav-item" href="veterans-first.html">Veterans First Initiative</a>
+      <a class="nav-item" href="partner-network.html">Partner Network</a>
+    </nav>
+    <button class="nav-toggle" id="navToggle" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
 
 <!-- WARNING TICKER -->
 <div class="launch-banner" id="launchBanner">
@@ -3417,9 +3438,36 @@ body {
 </section>
 
 <!-- Footer -->
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-brand"><span class="footer-wordmark">InPursuit Health</span></div>
+    <span class="footer-legal">&copy; 2026 InPursuit Health, LLC. All rights reserved.</span>
+  </div>
+  <div class="footer-nav">
+    <a href="index.html">Home</a>
+    <a href="tetra.html">TETRA</a>
+    <a href="for-you.html">For You</a>
+    <a href="for-providers.html">For Providers</a>
+    <a href="access-apply.html">ACCESS Application</a>
+    <a href="data-security-ai.html">AI &amp; Your Data</a>
+    <a href="maha-policy-alighnment.html">MAHA</a>
+    <a href="veterans-first.html">Veterans First</a>
+    <a href="partner-network.html">Partner Network</a>
+  </div>
+  <div class="footer-nav" style="margin-top:12px; padding-top:12px; border-top:1px solid rgba(197,164,78,0.05);">
+    <a href="about.html">About Us</a>
+    <a href="leadership.html">Leadership</a>
+    <a href="security-center.html">Security Center</a>
+    <a href="mailto:info@inpursuithealth.com">Contact</a>
+    <a href="careers.html">Careers</a>
+    <a href="privacy.html">Privacy Policy</a>
+    <a href="terms.html">Terms of Service</a>
+  </div>
+  <p class="footer-disclaimer">InPursuit Health is a veteran-owned healthcare technology company providing data interoperability and orchestration infrastructure. The information on this site is for informational purposes only and does not constitute medical advice. TETRA is a registered technology of InPursuit Health, LLC.</p>
+  <div class="footer-tagline">Harness the Power of Your Data&trade;</div>
+</footer>
 
-
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script>
 // Preloader
 window.addEventListener('load', () => {
   setTimeout(() => document.getElementById('preloader').classList.add('hidden'), 800);
@@ -3901,8 +3949,11 @@ function toggleFaq(btn) {
   if (!isOpen) item.classList.add('open');
 }
 
-// Handle broken
+// Handle broken logo images
+document.querySelectorAll('img').forEach(img => {
+  img.onerror = function() { this.style.display = 'none'; };
+});
+
 </script>
-<script src="nav.js"></script>
 </body>
 </html>
