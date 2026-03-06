@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>InPursuit Health — Investor Portal</title>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --navy:#0A1628;--navy-mid:#111D32;--navy-light:#1A2A44;--navy-soft:#1E3050;
+  --gold:#C5A55A;--gold-light:#D4BA7A;--gold-dim:rgba(197,165,90,.12);
+  --manila:#F2E8D5;--manila-dk:#E8D9BF;--manila-edge:#D4C5A8;
+  --tab-bg:#E5D7BE;
+  --cream:#F8F6F1;--warm:#FDFCFA;
+  --text:#1A1A1A;--mid:#3D3D3D;--muted:#888;--text-muted:#999;
+  --danger:#C0392B;--success:#27AE60;--accent:#3A7CA5;
+  --r:8px;--rl:14px;
+}
+html{scroll-behavior:smooth}
+body{font-family:'Instrument Sans',system-ui,sans-serif;background:var(--warm);color:var(--text);-webkit-font-smoothing:antialiased;line-height:1.55}
+.serif{font-family:'Instrument Serif',Georgia,serif}
+.container{max-width:1200px;margin:0 auto;padding:0 40px}
+@media(max-width:640px){.container{padding:0 20px}}
+
+/* ═══════════════════════════════════════════════════════
+   GATE SCREEN
+   ═══════════════════════════════════════════════════════ */
+#gate{min-height:100vh;display:flex;align-items:center;justify-content:center;background:var(--navy);position:relative;overflow:hidden}
+#gate::before{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:radial-gradient(ellipse at 30% 50%,rgba(197,165,90,.06) 0%,transparent 60%);pointer-events:none}
+#gate::after{content:'';position:absolute;bottom:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(197,165,90,.15),transparent)}
+.gate-card{position:relative;width:100%;max-width:520px;margin:24px;background:var(--navy-mid);border:1px solid rgba(197,165,90,.15);border-radius:var(--rl);overflow:hidden;box-shadow:0 24px 80px rgba(0,0,0,.4)}
+.gate-header{padding:36px 36px 28px;border-bottom:1px solid rgba(197,165,90,.12)}
+.gate-header .label{font-size:9px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:10px;display:block}
+.gate-header h1{font-family:'Instrument Serif',serif;font-size:26px;color:#fff;font-weight:400;letter-spacing:-.3px;line-height:1.3}
+.gate-header p{font-size:12px;color:rgba(255,255,255,.4);margin-top:10px;line-height:1.6}
+.gate-body{padding:32px 36px}
+@media(max-width:480px){.gate-header,.gate-body{padding-left:24px;padding-right:24px}}
+.gate-step{display:none}.gate-step.active{display:block}
+.field-label{display:block;font-size:10px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,.5);margin-bottom:8px}
+.field-input{width:100%;padding:12px 16px;background:var(--navy);border:1px solid rgba(197,165,90,.2);border-radius:var(--r);color:#fff;font-family:inherit;font-size:14px;transition:border .2s}
+.field-input:focus{outline:none;border-color:var(--gold)}
+.field-input::placeholder{color:rgba(255,255,255,.25)}
+.field-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:480px){.field-row{grid-template-columns:1fr}}
+.field-group{margin-bottom:20px}
+.captcha-box{display:flex;align-items:center;gap:16px;padding:16px;background:var(--navy);border:1px solid rgba(197,165,90,.15);border-radius:var(--r);margin-bottom:20px}
+.captcha-q{font-family:'Instrument Serif',serif;font-size:18px;color:var(--gold);white-space:nowrap}
+.captcha-input{flex:1;padding:10px 14px;background:var(--navy-light);border:1px solid rgba(197,165,90,.2);border-radius:var(--r);color:#fff;font-family:inherit;font-size:16px;text-align:center;max-width:100px}
+.captcha-input:focus{outline:none;border-color:var(--gold)}
+.checkbox-group{margin-bottom:14px;display:flex;gap:10px;align-items:flex-start}
+.checkbox-group input[type=checkbox]{appearance:none;width:18px;height:18px;min-width:18px;border:1.5px solid rgba(197,165,90,.3);border-radius:4px;background:var(--navy);cursor:pointer;position:relative;margin-top:1px;transition:all .2s}
+.checkbox-group input[type=checkbox]:checked{background:var(--gold);border-color:var(--gold)}
+.checkbox-group input[type=checkbox]:checked::after{content:'\2713';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:12px;color:var(--navy);font-weight:700}
+.checkbox-group label{font-size:11.5px;color:rgba(255,255,255,.55);line-height:1.55;cursor:pointer}
+.gate-error{color:var(--danger);font-size:11px;margin-top:8px;display:none}
+.gate-error.show{display:block}
+.step-dots{display:flex;gap:6px;align-items:center;justify-content:center;padding:20px 0 0}
+.step-dot{width:6px;height:6px;border-radius:50%;background:rgba(197,165,90,.2);transition:all .3s}
+.step-dot.active{background:var(--gold);width:20px;border-radius:3px}
+.gate-footer{padding:0 36px 32px;display:flex;justify-content:flex-end}
+@media(max-width:480px){.gate-footer{padding:0 24px 24px}}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:13px 28px;border:none;border-radius:var(--r);font-family:inherit;font-size:12px;font-weight:700;letter-spacing:1px;text-transform:uppercase;cursor:pointer;transition:all .25s}
+.btn-gold{background:var(--gold);color:var(--navy)}
+.btn-gold:hover{background:var(--gold-light);transform:translateY(-1px);box-shadow:0 8px 24px rgba(197,165,90,.3)}
+.btn-outline{background:transparent;border:1.5px solid var(--gold);color:var(--gold)}
+.btn-outline:hover{background:var(--gold-dim)}
+.btn-navy{background:var(--navy);color:#fff}
+.btn-navy:hover{background:var(--navy-light)}
+.fade-in{animation:fadeUp .55s ease both}
+@keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.d1{animation-delay:.08s}.d2{animation-delay:.16s}.d3{animation-delay:.24s}.d4{animation-delay:.32s}
+
+/* ═══════════════════════════════════════════════════════
+   PORTAL
+   ═══════════════════════════════════════════════════════ */
+#portal{display:none}
+
+.portal-nav{position:sticky;top:0;z-index:100;background:var(--navy);border-bottom:1px solid rgba(197,165,90,.12)}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;padding:0}
+.nav-brand{font-size:10px;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:var(--gold);padding:14px 0;flex-shrink:0}
+.nav-links{display:flex;gap:0;overflow-x:auto;-webkit-overflow-scrolling:touch}
+.nav-link{padding:14px 16px;font-size:9px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.35);text-decoration:none;border-bottom:2px solid transparent;transition:all .2s;cursor:pointer;white-space:nowrap}
+.nav-link:hover,.nav-link.active{color:#fff;border-bottom-color:var(--gold)}
+@media(max-width:768px){.nav-link{padding:12px 10px;font-size:8px;letter-spacing:1px}}
+.nav-user{font-size:10px;color:rgba(255,255,255,.3);flex-shrink:0;display:none}
+@media(min-width:900px){.nav-user{display:block}}
+.portal-section{display:none;min-height:60vh}.portal-section.active{display:block}
+
+/* ═══════════════════════════════════════════════════════
+   MANILA FOLDER DATA ROOM
+   ═══════════════════════════════════════════════════════ */
+.room-hero{padding:48px 0 32px}
+.room-hero-ey{font-size:11px;font-weight:600;color:var(--gold);text-transform:uppercase;letter-spacing:1px;margin-bottom:14px}
+.room-hero-t{font-family:'Instrument Serif',serif;font-size:38px;font-weight:400;color:var(--navy);line-height:1.15;max-width:680px;margin-bottom:14px}
+.room-hero-sub{font-size:14px;color:var(--muted);max-width:520px;line-height:1.6}
+
+.folder-wrap{margin-bottom:60px}
+.folder-tabs{display:flex;align-items:flex-end;gap:4px;position:relative;z-index:2}
+.folder-tab{
+  padding:14px 28px 16px;background:var(--tab-bg);
+  border:1px solid var(--manila-edge);border-bottom:none;
+  border-radius:8px 8px 0 0;cursor:pointer;
+  font-size:13px;font-weight:600;color:#8B7B60;
+  transition:all .2s;position:relative;bottom:-1px;
+  user-select:none;white-space:nowrap;
+}
+.folder-tab:hover{background:var(--manila-dk);color:#6B5D42}
+.folder-tab.active{
+  background:var(--manila);color:var(--navy);
+  padding-bottom:20px;box-shadow:0 -3px 8px rgba(0,0,0,.08);z-index:3;
+}
+.folder-tab.active::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:var(--manila)}
+.folder-tab.tab-invest{background:var(--gold);color:var(--navy);border-color:var(--gold);font-weight:700}
+.folder-tab.tab-invest:hover{background:#d4b76a}
+.folder-tab.tab-invest.active{background:var(--manila);color:var(--navy);border-color:var(--manila-edge)}
+
+.folder-body{
+  background:var(--manila);border:1px solid var(--manila-edge);
+  border-radius:0 8px 8px 8px;min-height:500px;position:relative;z-index:1;
+  box-shadow:0 2px 4px rgba(0,0,0,.04),0 8px 24px rgba(0,0,0,.06),4px 4px 0 var(--manila-dk),8px 8px 0 var(--manila-edge);
+}
+.folder-page{display:none;animation:fadeIn .3s ease}.folder-page.active{display:block}
+@keyframes fadeIn{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
+
+.doc-card{margin:32px;background:var(--warm);border-radius:4px;box-shadow:0 1px 8px rgba(0,0,0,.06);overflow:hidden}
+.ph{background:var(--navy);padding:24px 40px;display:flex;justify-content:space-between;align-items:flex-end;position:relative}
+.ph::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:var(--gold)}
+.ph-b{font-weight:700;font-size:14px;color:#fff}.ph-b span{color:var(--gold)}
+.ph-t{font-family:'Instrument Serif',serif;font-size:24px;color:#fff;margin-top:4px}
+.ph-r{text-align:right}
+.ph-dt{font-size:10px;color:var(--gold);font-weight:600}
+.ph-c{font-size:9px;color:rgba(255,255,255,.25);margin-top:3px}
+.pb{padding:32px 40px 28px}
+
+.dl-bar{display:flex;justify-content:flex-end;gap:8px;padding:12px 32px;background:rgba(0,0,0,.02);border-top:1px solid rgba(0,0,0,.04)}
+.btn-d{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:4px;font-size:11px;font-weight:600;text-decoration:none;transition:all .2s;cursor:pointer;border:none}
+.btn-pdf{background:var(--gold);color:var(--navy)}.btn-pdf:hover{background:#d4b76a}
+.btn-docx{background:transparent;border:1px solid var(--manila-edge);color:#8B7B60}.btn-docx:hover{border-color:var(--gold);color:var(--gold)}
+
+.hq{font-family:'Instrument Serif',serif;font-size:17px;color:var(--navy);font-style:italic;line-height:1.55;max-width:520px;margin-bottom:32px}
+.sl{font-size:11px;font-weight:700;color:var(--gold);margin-bottom:12px;padding-bottom:4px;border-bottom:1px solid var(--gold);display:inline-block}
+.gr{height:2px;background:linear-gradient(90deg,var(--gold),transparent);margin:28px 0}
+
+.pills{display:grid;grid-template-columns:1fr 1fr 1fr;gap:0;margin-bottom:32px}
+.pill{padding-right:20px}.pill+.pill{padding-left:20px;border-left:2px solid var(--gold)}
+.pill-l{font-size:11px;font-weight:700;color:var(--gold);margin-bottom:5px}
+.pill-t{font-family:'Instrument Serif',serif;font-size:14px;color:var(--navy);margin-bottom:5px;line-height:1.3}
+.pill-x{font-size:10.5px;color:var(--mid);line-height:1.6}
+
+.two-c{display:grid;grid-template-columns:1fr 1fr;gap:0;margin-bottom:28px}
+.cl{padding-right:28px}.cr{padding-left:28px;border-left:2px solid var(--gold)}
+.tt{width:100%;border-collapse:collapse}
+.tt tr td{padding:6px 0;border-bottom:1px solid #eee;font-size:11px}
+.tt .tl{color:var(--muted)}.tt .tv{text-align:right;font-family:'Instrument Serif',serif;color:var(--navy);font-size:12px}
+.tt .tv.g{color:var(--gold);font-size:14px;font-weight:600}
+.sc{margin-bottom:14px}.sc-l{font-size:10px;color:var(--muted);margin-bottom:1px}
+.sc-v{font-family:'Instrument Serif',serif;font-size:28px;color:var(--navy);display:inline}
+.sc-m{font-size:11px;color:var(--muted);margin-left:6px}
+.sn{font-size:9px;color:var(--muted);font-style:italic;margin-top:6px}
+
+.ms-item{margin-bottom:12px}.ms-t{font-size:10px;font-weight:700;color:var(--gold);margin-bottom:2px}
+.ms-x{font-size:11px;color:var(--mid);line-height:1.5}.ms-x strong{color:var(--navy)}
+
+.ct{width:100%;border-collapse:collapse;margin-bottom:20px}
+.ct th{text-align:left;font-size:10px;font-weight:700;color:var(--gold);padding:5px 0;border-bottom:2px solid var(--gold)}
+.ct th:nth-child(3),.ct th:nth-child(4){text-align:right}
+.ct td{padding:7px 0;border-bottom:1px solid #eee;font-size:11px;color:var(--mid)}
+.ct td:first-child{font-family:'Instrument Serif',serif;color:var(--navy);font-size:12px}
+.ct td:nth-child(3){text-align:right;font-family:'Instrument Serif',serif;color:var(--navy);font-size:12px}
+.ct td:nth-child(4){text-align:right}
+.ct tr.hl td{background:rgba(197,165,90,.1);border-bottom:none;color:var(--gold);font-weight:600}
+.ct tr.hl td:first-child,.ct tr.hl td:nth-child(3){color:var(--gold)}
+.cq{font-family:'Instrument Serif',serif;font-size:15px;color:var(--navy);font-style:italic;line-height:1.5;margin-top:24px;max-width:460px}
+
+.rt{width:100%;border-collapse:collapse;margin-bottom:20px}
+.rt th{font-size:10px;font-weight:700;color:var(--gold);padding:5px 0;border-bottom:2px solid var(--gold);text-align:right}
+.rt th:first-child{text-align:left}
+.rt td{padding:6px 0;border-bottom:1px solid #eee;font-size:11px;color:var(--mid);text-align:right}
+.rt td:first-child{text-align:left;color:var(--navy);font-weight:600}
+.rt tr.tot td{border-top:3px solid var(--navy);border-bottom:none;font-family:'Instrument Serif',serif;color:var(--navy);font-size:12px;font-weight:600}
+
+.rg{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:0;margin-bottom:28px}
+.rb{padding:0 14px}.rb+.rb{border-left:1px solid #e0e0e0}
+.rb:first-child{padding-left:0}
+.rb-l{font-size:10px;font-weight:700;color:var(--muted);margin-bottom:3px}
+.rb-r{font-size:9px;color:var(--muted);margin-bottom:6px}
+.rb-v{font-family:'Instrument Serif',serif;font-size:22px;color:var(--navy);margin-bottom:2px}
+.rb.base .rb-v{font-size:26px}
+.rb-m{font-family:'Instrument Serif',serif;font-size:15px;color:var(--gold)}
+.rb.base .rb-m{font-size:18px}
+.bn{font-size:11px;color:var(--mid);line-height:1.65}.bn strong{color:var(--navy)}
+
+.pf{padding:10px 40px;border-top:1px solid var(--gold);display:flex;justify-content:space-between;align-items:center;font-size:8px;color:var(--muted)}
+.pf .cf{color:var(--gold);font-weight:700}
+
+/* Market Analysis */
+.market-card{background:#fff;border:1px solid rgba(0,0,0,.05);border-radius:var(--rl);overflow:hidden;margin-bottom:24px;box-shadow:0 1px 3px rgba(0,0,0,.03)}
+.market-card-header{padding:22px 24px 18px;border-bottom:1px solid rgba(0,0,0,.04);display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap}
+.market-card-title{font-family:'Instrument Serif',serif;font-size:16px;color:var(--navy)}
+.badge{font-size:8px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:4px 10px;border-radius:4px;white-space:nowrap}
+.badge-ctx{background:rgba(58,124,165,.1);color:var(--accent)}
+.market-card-body{padding:24px}
+.market-pillars{display:grid;grid-template-columns:repeat(3,1fr);gap:0;margin:0}
+.market-pillar{padding:0 22px;border-left:2px solid var(--gold)}
+.market-pillar:first-child{padding-left:0;border-left:none}
+.mp-num{font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:6px}
+.mp-title{font-family:'Instrument Serif',serif;font-size:14px;color:var(--navy);margin-bottom:4px;line-height:1.3}
+.mp-time{font-size:9px;color:var(--text-muted);margin-bottom:8px;font-weight:500}
+.mp-text{font-size:11px;color:var(--mid);line-height:1.6;margin-bottom:8px}
+.mp-val{font-size:11px;color:var(--gold);font-weight:600}
+
+.callout{background:var(--navy);border-left:2px solid var(--gold);padding:18px 22px;border-radius:0 var(--r) var(--r) 0;margin:16px 0}
+.callout p{font-family:'Instrument Serif',serif;font-size:13px;color:#fff;line-height:1.55;margin-bottom:8px}
+.callout .hl-text{font-family:'Instrument Sans',sans-serif;font-size:10px;color:var(--gold-light);font-weight:600;margin-bottom:0}
+
+/* Execute SAFE section */
+.safe-steps{display:flex;gap:0;margin-bottom:28px;overflow-x:auto}
+.safe-step{flex:1;min-width:100px;padding:14px;text-align:center;border-bottom:2px solid rgba(0,0,0,.06)}
+.safe-step.active-step{border-bottom-color:var(--gold)}
+.safe-step-num{width:26px;height:26px;border-radius:50%;background:var(--cream);color:var(--text-muted);display:inline-flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;margin-bottom:4px}
+.safe-step.active-step .safe-step-num{background:var(--gold);color:var(--navy)}
+.safe-step-label{font-size:9px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:var(--text-muted)}
+.safe-step.active-step .safe-step-label{color:var(--navy)}
+
+.invest-card{background:#fff;border:1px solid rgba(0,0,0,.05);border-radius:var(--rl);overflow:hidden;margin-bottom:24px}
+.invest-card-header{padding:22px 24px 18px;border-bottom:1px solid rgba(0,0,0,.04)}
+.invest-card-title{font-family:'Instrument Serif',serif;font-size:16px;color:var(--navy)}
+.invest-card-body{padding:24px}
+
+.impl-banner{background:var(--navy);border-left:3px solid var(--gold);border-radius:0 var(--rl) var(--rl) 0;padding:24px 28px;margin:28px 0}
+.impl-banner h4{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:10px}
+.impl-banner p{font-size:12px;color:rgba(255,255,255,.6);line-height:1.7;margin-bottom:8px}
+.impl-banner ul{padding-left:18px;margin-top:8px}
+.impl-banner li{font-size:11px;color:rgba(255,255,255,.55);line-height:1.7;margin-bottom:4px}
+.impl-banner li strong{color:rgba(255,255,255,.8)}
+.impl-banner code{background:rgba(197,165,90,.15);color:var(--gold-light);padding:2px 6px;border-radius:3px;font-size:10px}
+
+/* Footer */
+.footer{background:var(--navy);padding:16px 0}
+.footer-inner{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px}
+.footer-l{font-size:8px;color:rgba(255,255,255,.25)}
+.footer-r{font-size:8px;color:var(--gold);font-weight:600;letter-spacing:2px;text-transform:uppercase}
+
+@media(max-width:1000px){
+  .folder-tabs{overflow-x:auto;-webkit-overflow-scrolling:touch}
+  .pills,.two-c,.rg,.market-pillars{grid-template-columns:1fr;gap:20px}
+  .pill+.pill,.cr{border-left:none;padding-left:0;border-top:1px solid var(--gold);padding-top:16px}
+  .rb+.rb{border-left:none;border-top:1px solid #eee;padding-top:12px;padding-left:0}
+  .market-pillar{border-left:none;padding:0}.market-pillar+.market-pillar{border-top:2px solid var(--gold);padding-top:16px}
+  .doc-card{margin:16px}.pb{padding:24px}.ph{padding:20px 24px}
+  .room-hero-t{font-size:28px}
+}
+</style>
+</head>
+<body>
+
+<!-- ════════════════════════════════════════════════════════
+     GATE SCREEN
+     ════════════════════════════════════════════════════════ -->
+<div id="gate">
+  <div class="gate-card fade-in">
+    <div class="gate-header">
+      <span class="label">InPursuit Health &mdash; Investor Portal</span>
+      <h1 class="serif">Accredited Investor Access</h1>
+      <p>This portal contains confidential investment materials. Access is restricted to verified accredited investors under SEC Regulation D.</p>
+    </div>
+    <div class="gate-body">
+      <!-- Step 1: Identity + CAPTCHA -->
+      <div class="gate-step active" id="gs1">
+        <div class="field-row">
+          <div class="field-group"><label class="field-label">First Name</label><input type="text" class="field-input" id="fname" placeholder="First name" autocomplete="given-name"></div>
+          <div class="field-group"><label class="field-label">Last Name</label><input type="text" class="field-input" id="lname" placeholder="Last name" autocomplete="family-name"></div>
+        </div>
+        <div class="field-group"><label class="field-label">Email</label><input type="email" class="field-input" id="email" placeholder="you@company.com" autocomplete="email"></div>
+        <div class="field-group">
+          <label class="field-label">Human Verification</label>
+          <div class="captcha-box"><span class="captcha-q" id="cq"></span><span style="color:rgba(255,255,255,.2)">=</span><input type="text" class="captcha-input" id="ca" placeholder="?" inputmode="numeric"></div>
+        </div>
+        <div class="gate-error" id="err1">Please complete all fields and answer correctly.</div>
+      </div>
+      <!-- Step 2: Accredited Investor -->
+      <div class="gate-step" id="gs2">
+        <p style="font-size:12px;color:rgba(255,255,255,.5);margin-bottom:18px;line-height:1.6">Under SEC Rule 501 of Regulation D, I certify that I qualify as an accredited investor based on <strong style="color:rgba(255,255,255,.8)">one or more</strong> of the following:</p>
+        <div class="checkbox-group"><input type="checkbox" id="ai1"><label for="ai1">Individual net worth exceeding <strong style="color:#fff">$1,000,000</strong> (excluding primary residence), individually or with spouse.</label></div>
+        <div class="checkbox-group"><input type="checkbox" id="ai2"><label for="ai2">Individual income exceeding <strong style="color:#fff">$200,000</strong> (or $300,000 jointly) in each of the two most recent years with expectation of same.</label></div>
+        <div class="checkbox-group"><input type="checkbox" id="ai3"><label for="ai3">I hold a Series 7, 65, or 82 license in good standing.</label></div>
+        <div class="checkbox-group"><input type="checkbox" id="ai4"><label for="ai4">I represent an entity with assets exceeding <strong style="color:#fff">$5,000,000</strong>.</label></div>
+        <div style="margin-top:18px;padding:14px;background:var(--navy);border-radius:var(--r);border:1px solid rgba(197,165,90,.1)">
+          <div class="checkbox-group" style="margin:0"><input type="checkbox" id="ai-attest"><label for="ai-attest" style="color:var(--gold-light);font-weight:600">I attest under penalty of law that the above is true and accurate, and understand InPursuit Health is relying upon this certification.</label></div>
+        </div>
+        <div class="gate-error" id="err2">Please select at least one qualification and complete the attestation.</div>
+      </div>
+    </div>
+    <div class="step-dots"><div class="step-dot active" id="sd1"></div><div class="step-dot" id="sd2"></div></div>
+    <div class="gate-footer" style="padding-top:14px"><button class="btn btn-gold" id="gate-btn" onclick="gateNext()">Continue &rarr;</button></div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════════
+     PORTAL
+     ════════════════════════════════════════════════════════ -->
+<div id="portal">
+  <nav class="portal-nav">
+    <div class="container">
+      <div class="nav-inner">
+        <div class="nav-brand">InPursuit Health</div>
+        <div class="nav-links">
+          <a class="nav-link active" onclick="showSection('dataroom',this)">Data Room</a>
+          <a class="nav-link" onclick="showSection('market',this)">Market Analysis</a>
+          <a class="nav-link" onclick="showSection('execute',this)">Execute SAFE</a>
+        </div>
+        <div class="nav-user" id="nav-user"></div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ═══════════════════════════════════════════════════
+       SECTION: DATA ROOM (Manila Folder Tabs)
+       ═══════════════════════════════════════════════════ -->
+  <div class="portal-section active" id="sec-dataroom">
+    <div class="container">
+      <div class="room-hero fade-in">
+        <div class="room-hero-ey">Confidential Investment Materials</div>
+        <h1 class="room-hero-t">The Regulated AI Orchestration Layer for Healthcare</h1>
+        <p class="room-hero-sub">CMS Health IT Ecosystem Approved. DoD/VA Validated. Building the infrastructure every healthcare AI needs to exist.</p>
+      </div>
+
+      <div class="folder-wrap">
+        <div class="folder-tabs">
+          <div class="folder-tab active" data-tab="safe">SAFE One-Pager</div>
+          <div class="folder-tab" data-tab="series-a">Series A Overview</div>
+          <div class="folder-tab" data-tab="thesis">Infrastructure Thesis</div>
+          <div class="folder-tab" data-tab="returns">Revenue &amp; Returns</div>
+          <div class="folder-tab tab-invest" data-tab="invest">Invest Now</div>
+        </div>
+        <div class="folder-body">
+
+          <!-- TAB 1: SAFE -->
+          <div class="folder-page active" id="fp-safe">
+            <div class="doc-card">
+              <div class="ph"><div><div class="ph-b">InPursuit <span>Health</span></div><div class="ph-t">SAFE &mdash; Post-Money Valuation Cap</div></div><div class="ph-r"><div class="ph-dt">Investment Overview</div><div class="ph-c">Confidential</div></div></div>
+              <div class="pb">
+                <div class="hq">One of a select few companies elected to the CMS Health IT Ecosystem alongside multi-billion-dollar incumbents. We earn when patients improve. One signed customer proves the model scales nationally.</div>
+                <div class="pills">
+                  <div class="pill"><div class="pill-l">Federal Validation</div><div class="pill-t">CMS-elected alongside billion-dollar enterprises</div><div class="pill-x">CMS Health IT Ecosystem approved. DoD/VA validated &mdash; outperformed IBM, SAP, Oracle, InterSystems in head-to-head evaluation. 95% interoperability across 1.8M+ transactions per hour. This federal imprimatur cannot be replicated.</div></div>
+                  <div class="pill"><div class="pill-l">Revenue Model</div><div class="pill-t">We earn when patients improve</div><div class="pill-x">Providers pay nothing upfront. InPursuit receives a percentage of CMS Outcome-Aligned Payments. Zero risk to providers. Fully aligned incentives. Revenue scales with patient outcomes, not software seats.</div></div>
+                  <div class="pill"><div class="pill-l">Repeatable Blueprint</div><div class="pill-t">Honeycomb proves it scales nationally</div><div class="pill-x">22,000 patients. LOI signed. Joint ACCESS application with InPursuit as technology backbone. $465K Year 1 revenue from one partner. At 50 partners: $23M+ annually. This is one of six revenue clusters.</div></div>
+                </div>
+                <div class="gr"></div>
+                <div class="two-c">
+                  <div class="cl"><div class="sl">SAFE Terms</div><table class="tt"><tr><td class="tl">Instrument</td><td class="tv">Post-Money SAFE</td></tr><tr><td class="tl">Raising</td><td class="tv g">$1.0M &mdash; $1.5M</td></tr><tr><td class="tl">Valuation Cap</td><td class="tv g">$21,000,000</td></tr><tr><td class="tl">Discount</td><td class="tv">20%</td></tr><tr><td class="tl">Pro-Rata Rights</td><td class="tv">Yes (&ge;$100K)</td></tr><tr><td class="tl">MFN</td><td class="tv">Yes</td></tr><tr><td class="tl">Governing Law</td><td class="tv">Wyoming</td></tr></table></div>
+                  <div class="cr"><div class="sl">$100K at $21M Cap</div>
+                    <div class="sc"><div class="sc-l">Series A at $120M</div><div class="sc-v">$571K</div><span class="sc-m">5.7x in 12 months</span></div>
+                    <div class="sc"><div class="sc-l">Series A at $160M</div><div class="sc-v">$762K</div><span class="sc-m">7.6x in 12 months</span></div>
+                    <div class="sc"><div class="sc-l">Series A at $220M</div><div class="sc-v">$1.05M</div><span class="sc-m">10.5x in 12 months</span></div>
+                    <div class="sn">Based on post-money SAFE conversion at cap. Actual returns depend on Series A terms.</div>
+                  </div>
+                </div>
+              </div>
+              <div class="dl-bar"><a class="btn-d btn-pdf" onclick="handleDownload('InPursuit_SAFE_OnePager.pdf')">Download PDF</a><a class="btn-d btn-docx" onclick="handleDownload('InPursuit_SAFE_OnePager.docx')">Download DOCX</a></div>
+              <div class="pf"><span>InPursuit Health, LLC &bull; Wyoming &bull; CMS Health IT Ecosystem Approved</span><span class="cf">Confidential</span></div>
+            </div>
+          </div>
+
+          <!-- TAB 2: SERIES A -->
+          <div class="folder-page" id="fp-series-a">
+            <div class="doc-card">
+              <div class="ph"><div><div class="ph-b">InPursuit <span>Health</span></div><div class="ph-t">Series A &mdash; Infrastructure at Scale</div></div><div class="ph-r"><div class="ph-dt">Strategic Overview</div><div class="ph-c">Confidential</div></div></div>
+              <div class="pb">
+                <div class="hq">The SAFE bridges to a landmark Series A. Federal validation is secured. First revenue is live. The Series A funds national scale across the $4.3 trillion healthcare market.</div>
+                <div class="two-c">
+                  <div class="cl">
+                    <div class="sl">Series A Targets</div>
+                    <table class="tt"><tr><td class="tl">Pre-Money Valuation</td><td class="tv g">$120M &mdash; $160M</td></tr><tr><td class="tl">Raise Amount</td><td class="tv g">~$20M</td></tr><tr><td class="tl">Timeline</td><td class="tv">Q4 2026 &mdash; Q1 2027</td></tr><tr><td class="tl">Use of Funds</td><td class="tv">National scale</td></tr><tr><td class="tl">Target Investors</td><td class="tv">Healthcare + Infra VCs</td></tr></table>
+                  </div>
+                  <div class="cr">
+                    <div class="sl">Milestone Valuation Path</div>
+                    <div class="ms-item"><div class="ms-t">CMS Ecosystem Approved</div><div class="ms-x"><strong>Achieved.</strong> 3 patient-facing categories. Baseline: $21M cap.</div></div>
+                    <div class="ms-item"><div class="ms-t">Honeycomb LOI Signed</div><div class="ms-x"><strong>Achieved.</strong> 22,000 patients, Memphis TN.</div></div>
+                    <div class="ms-item"><div class="ms-t">ACCESS Application Accepted</div><div class="ms-x">CMS validates commercial model. &rarr; $40&ndash;60M implied.</div></div>
+                    <div class="ms-item"><div class="ms-t">ACCESS Go-Live + Revenue</div><div class="ms-x">Live production. CMS payments flowing. &rarr; $80&ndash;120M implied.</div></div>
+                    <div class="ms-item"><div class="ms-t">Series A Close</div><div class="ms-x">$20M raise. 18&ndash;24 months runway. &rarr; $120&ndash;160M pre-money.</div></div>
+                  </div>
+                </div>
+                <div class="gr"></div>
+                <div class="sl">Comparable Entry Points</div>
+                <table class="ct"><thead><tr><th>Company</th><th>Stage at Entry</th><th>Valuation</th><th>InPursuit Advantage</th></tr></thead><tbody>
+                  <tr><td>Aledade</td><td>Pre-revenue, no CMS validation</td><td>~$50M</td><td>InPursuit has CMS + DoD/VA + signed customer</td></tr>
+                  <tr><td>Devoted Health</td><td>Pre-launch MA plan</td><td>~$180M</td><td>InPursuit is infrastructure, not plan</td></tr>
+                  <tr><td>Cityblock</td><td>1 market, limited data</td><td>~$100M</td><td>InPursuit has federal-grade interop</td></tr>
+                  <tr class="hl"><td>InPursuit (SAFE)</td><td>CMS + DoD + Customer</td><td>$21M cap</td><td>50&ndash;85% discount to comparables</td></tr>
+                </tbody></table>
+                <div class="cq">SAFE investors enter at a significant discount to where every comparable company priced at similar or earlier milestones.</div>
+              </div>
+              <div class="dl-bar"><a class="btn-d btn-pdf" onclick="handleDownload('InPursuit_SeriesA_Overview.pdf')">Download PDF</a><a class="btn-d btn-docx" onclick="handleDownload('InPursuit_SeriesA_Overview.docx')">Download DOCX</a></div>
+              <div class="pf"><span>InPursuit Health, LLC &bull; Wyoming &bull; CMS Health IT Ecosystem Approved</span><span class="cf">Confidential</span></div>
+            </div>
+          </div>
+
+          <!-- TAB 3: THESIS -->
+          <div class="folder-page" id="fp-thesis">
+            <div class="doc-card">
+              <div class="ph"><div><div class="ph-b">InPursuit <span>Health</span></div><div class="ph-t">The Infrastructure Thesis</div></div><div class="ph-r"><div class="ph-dt">Investment Thesis</div><div class="ph-c">Confidential</div></div></div>
+              <div class="pb">
+                <div class="hq">AI proliferation in healthcare is a certainty. The question is not which AI wins &mdash; it is who owns the compliant data substrate every AI requires to operate. InPursuit is that substrate.</div>
+                <div class="pills">
+                  <div class="pill"><div class="pill-l">The Problem</div><div class="pill-t">$1.5T wasted annually on fragmented data</div><div class="pill-x">The US healthcare system spends $4.5 trillion annually, yet 30&ndash;40% is wasted on administrative complexity, duplicated services, and care fragmentation. 400+ EHR systems. Zero interoperability standard enforced until now.</div></div>
+                  <div class="pill"><div class="pill-l">The Mandate</div><div class="pill-t">CMS requires 100% outcome-based care by 2030</div><div class="pill-x">Every Traditional Medicare beneficiary must be in an accountable care relationship by 2030. The ACCESS Model mandates HIE data sharing. Providers who cannot interoperate cannot participate. Cannot bill. Cannot survive.</div></div>
+                  <div class="pill"><div class="pill-l">The Infrastructure</div><div class="pill-t">TETRA is the orchestration layer</div><div class="pill-x">95% interoperability. 1.8M+ transactions per hour. Model-agnostic &mdash; works with any AI, any EHR, any payer. Federal-grade security. CMS-elected. The AWS of healthcare data.</div></div>
+                </div>
+                <div class="gr"></div>
+                <div class="sl">Competitive Landscape</div>
+                <table class="ct"><thead><tr><th>Company</th><th>Interop Rate</th><th>CMS Approved</th><th>Federal Validated</th></tr></thead><tbody>
+                  <tr><td>Particle Health</td><td>~60%</td><td>No</td><td>No</td></tr>
+                  <tr><td>Redox</td><td>~55%</td><td>No</td><td>No</td></tr>
+                  <tr><td>Health Gorilla</td><td>~50%</td><td>No</td><td>No</td></tr>
+                  <tr class="hl"><td>InPursuit Health</td><td>95%</td><td>3 Categories</td><td>DoD/VA Validated</td></tr>
+                </tbody></table>
+                <div class="cq">Every healthcare AI company &mdash; from ambient scribes to clinical decision support to population health &mdash; needs a compliant data layer. InPursuit does not compete with AI companies. InPursuit enables them.</div>
+              </div>
+              <div class="dl-bar"><a class="btn-d btn-pdf" onclick="handleDownload('InPursuit_Infrastructure_Thesis.pdf')">Download PDF</a><a class="btn-d btn-docx" onclick="handleDownload('InPursuit_Infrastructure_Thesis.docx')">Download DOCX</a></div>
+              <div class="pf"><span>InPursuit Health, LLC &bull; Wyoming &bull; CMS Health IT Ecosystem Approved</span><span class="cf">Confidential</span></div>
+            </div>
+          </div>
+
+          <!-- TAB 4: REVENUE & RETURNS -->
+          <div class="folder-page" id="fp-returns">
+            <div class="doc-card">
+              <div class="ph"><div><div class="ph-b">InPursuit <span>Health</span></div><div class="ph-t">Revenue Model &amp; Return Scenarios</div></div><div class="ph-r"><div class="ph-dt">Financial Projections</div><div class="ph-c">Confidential</div></div></div>
+              <div class="pb">
+                <div class="sl">Six Revenue Clusters</div>
+                <table class="rt"><thead><tr><th>Revenue Stream</th><th>Year 1</th><th>Year 2</th><th>Year 3</th></tr></thead><tbody>
+                  <tr><td>CMS ACCESS Model</td><td>$540K</td><td>$4.8M</td><td>$14.2M</td></tr>
+                  <tr><td>VA/DoD Expansion</td><td>&mdash;</td><td>$1.2M</td><td>$3.6M</td></tr>
+                  <tr><td>ARPA-H ADVOCATE</td><td>&mdash;</td><td>$800K</td><td>$2.4M</td></tr>
+                  <tr><td>AI Supervisory Layer</td><td>&mdash;</td><td>$1.5M</td><td>$6.0M</td></tr>
+                  <tr><td>Partner Network</td><td>&mdash;</td><td>$2.0M</td><td>$8.0M</td></tr>
+                  <tr><td>Direct-to-Consumer</td><td>&mdash;</td><td>$500K</td><td>$3.8M</td></tr>
+                  <tr class="tot"><td>Total Revenue</td><td>$540K</td><td>$10.8M</td><td>$38.0M</td></tr>
+                </tbody></table>
+                <div class="gr"></div>
+                <div class="sl">Return Scenarios &mdash; $100K SAFE Investment</div>
+                <div class="rg">
+                  <div class="rb base"><div class="rb-l">SAFE Entry</div><div class="rb-r">Today</div><div class="rb-v">$100K</div><div class="rb-m">$21M cap</div></div>
+                  <div class="rb"><div class="rb-l">Conservative</div><div class="rb-r">Series A at $120M</div><div class="rb-v">$571K</div><div class="rb-m">5.7x</div></div>
+                  <div class="rb"><div class="rb-l">Base Case</div><div class="rb-r">Series A at $160M</div><div class="rb-v">$762K</div><div class="rb-m">7.6x</div></div>
+                  <div class="rb"><div class="rb-l">Upside</div><div class="rb-r">Series A at $220M</div><div class="rb-v">$1.05M</div><div class="rb-m">10.5x</div></div>
+                </div>
+                <div class="bn">Revenue projections are bottoms-up from signed LOIs, CMS payment schedules, and conservative partner acquisition rates. <strong>Year 2 run rate of $10.8M at 7&ndash;10x forward revenue supports $75&ndash;108M valuation</strong> &mdash; well above the $21M SAFE cap. SAFE investors capture the delta between today's entry and post-revenue pricing.</div>
+              </div>
+              <div class="dl-bar"><a class="btn-d btn-pdf" onclick="handleDownload('InPursuit_SeriesA_Returns.pdf')">Download PDF</a><a class="btn-d btn-docx" onclick="handleDownload('InPursuit_SeriesA_Returns.docx')">Download DOCX</a></div>
+              <div class="pf"><span>InPursuit Health, LLC &bull; Wyoming &bull; CMS Health IT Ecosystem Approved</span><span class="cf">Confidential</span></div>
+            </div>
+          </div>
+
+          <!-- TAB 5: INVEST NOW -->
+          <div class="folder-page" id="fp-invest">
+            <div class="doc-card">
+              <div class="ph"><div><div class="ph-b">InPursuit <span>Health</span></div><div class="ph-t">Execute Your SAFE Investment</div></div><div class="ph-r"><div class="ph-dt">Invest Now</div><div class="ph-c">Secure &bull; Carta-Managed</div></div></div>
+              <div class="pb">
+                <div class="hq">Three steps. Five minutes. Your SAFE is managed on Carta with full cap table visibility, electronic signature, and automated wire instructions.</div>
+                <div class="pills">
+                  <div class="pill"><div class="pill-l">Step 1</div><div class="pill-t">Select your investment amount</div><div class="pill-x">Minimum $25,000. Pro-rata rights for investments of $100K+. Enter your amount and Carta generates your personalized SAFE agreement with pre-filled terms.</div></div>
+                  <div class="pill"><div class="pill-l">Step 2</div><div class="pill-t">Review and sign electronically</div><div class="pill-x">Carta handles electronic signature, accredited investor verification, and document management. InPursuit countersigns within 24 hours.</div></div>
+                  <div class="pill"><div class="pill-l">Step 3</div><div class="pill-t">Wire funds and you are done</div><div class="pill-x">Carta provides wire instructions immediately after signature. Once funds are received, your SAFE is logged to the cap table automatically. Full transparency.</div></div>
+                </div>
+                <div class="gr"></div>
+                <div class="two-c">
+                  <div class="cl">
+                    <div class="sl">SAFE Terms Summary</div>
+                    <table class="tt"><tr><td class="tl">Instrument</td><td class="tv">Post-Money SAFE (YC Standard)</td></tr><tr><td class="tl">Valuation Cap</td><td class="tv g">$21,000,000</td></tr><tr><td class="tl">Discount</td><td class="tv">20%</td></tr><tr><td class="tl">Minimum</td><td class="tv">$25,000</td></tr><tr><td class="tl">Pro-Rata</td><td class="tv">Yes (&ge;$100K)</td></tr><tr><td class="tl">MFN</td><td class="tv">Yes</td></tr><tr><td class="tl">Managed On</td><td class="tv">Carta</td></tr></table>
+                  </div>
+                  <div class="cr" style="display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding-top:24px;">
+                    <div style="font-family:'Instrument Serif',serif;font-size:22px;color:var(--navy);margin-bottom:12px">Ready to invest?</div>
+                    <a href="CARTA_INVESTOR_LINK_HERE" target="_blank" class="btn btn-gold" style="font-size:14px;padding:18px 48px;border-radius:6px;text-decoration:none;margin-bottom:16px">Invest via Carta &rarr;</a>
+                    <div style="font-size:10px;color:var(--muted);line-height:1.5;max-width:280px">You will be redirected to Carta's secure investor portal to review terms, sign electronically, and receive wire instructions.</div>
+                  </div>
+                </div>
+              </div>
+              <div class="pf"><span>InPursuit Health, LLC &bull; Wyoming &bull; CMS Health IT Ecosystem Approved</span><span class="cf">Confidential</span></div>
+            </div>
+          </div>
+
+        </div><!-- /folder-body -->
+      </div><!-- /folder-wrap -->
+    </div><!-- /container -->
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════
+       SECTION: MARKET ANALYSIS
+       ═══════════════════════════════════════════════════ -->
+  <div class="portal-section" id="sec-market">
+    <div class="container" style="padding-top:40px;padding-bottom:60px">
+      <div class="room-hero fade-in" style="padding-top:0">
+        <div class="room-hero-ey">Market Intelligence</div>
+        <h1 class="room-hero-t" style="font-size:32px">VBC Customer Base vs. Total Provider Market</h1>
+        <p class="room-hero-sub">InPursuit's addressable market spans the full US provider landscape &mdash; from VBC-active beachhead to CMS-mandated national adoption by 2030.</p>
+      </div>
+      <div class="callout fade-in d1">
+        <p>Your VBC customer base (~830K physicians, ~60K facilities) is roughly 35&ndash;40% of the total US provider market. That is the beachhead &mdash; providers who need interoperability now. The other 60% is where massive growth lives. CMS is mandating 100% by 2030.</p>
+        <div class="hl-text">Strategy: Win VBC-first customers (in pain now), then ride the CMS mandate wave to 100%.</div>
+      </div>
+      <div class="market-card fade-in d2">
+        <div class="market-card-header"><div class="market-card-title">Go-to-Market &mdash; Three Phases</div><div class="badge badge-ctx">Strategy</div></div>
+        <div class="market-card-body">
+          <div class="market-pillars">
+            <div class="market-pillar"><div class="mp-num">Phase I</div><div class="mp-title">Beachhead</div><div class="mp-time">Now &ndash; Q3 2026</div><div class="mp-text">511 MSSP ACOs, 74 ACO REACH, TEAM hospitals, ACCESS applicants.</div><div class="mp-val">~830K physicians &bull; ~60K facilities</div></div>
+            <div class="market-pillar"><div class="mp-num">Phase II</div><div class="mp-title">Expansion</div><div class="mp-time">Q4 2026 &ndash; 2027</div><div class="mp-text">MIPS penalties + TEAM mandates + LEAD Model 2027.</div><div class="mp-val">~200K physicians &bull; ~30K facilities</div></div>
+            <div class="market-pillar"><div class="mp-num">Phase III</div><div class="mp-title">Total Market</div><div class="mp-time">2028 &ndash; 2030</div><div class="mp-text">CMS mandate: all Medicare in accountable care by 2030.</div><div class="mp-val">~370K physicians &bull; ~350K+ facilities</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════
+       SECTION: EXECUTE SAFE
+       ═══════════════════════════════════════════════════ -->
+  <div class="portal-section" id="sec-execute">
+    <div class="container" style="padding-top:40px;padding-bottom:60px">
+      <div class="room-hero fade-in" style="padding-top:0">
+        <div class="room-hero-ey">Execute SAFE</div>
+        <h1 class="room-hero-t" style="font-size:32px">Digital SAFE Execution</h1>
+        <p class="room-hero-sub">Complete the steps below. InPursuit Health will countersign within 24 hours.</p>
+      </div>
+
+      <div class="safe-steps fade-in d1">
+        <div class="safe-step active-step"><div class="safe-step-num">1</div><div class="safe-step-label">Amount</div></div>
+        <div class="safe-step"><div class="safe-step-num">2</div><div class="safe-step-label">Review</div></div>
+        <div class="safe-step"><div class="safe-step-num">3</div><div class="safe-step-label">Sign</div></div>
+        <div class="safe-step"><div class="safe-step-num">4</div><div class="safe-step-label">Done</div></div>
+      </div>
+
+      <div class="invest-card fade-in d2">
+        <div class="invest-card-header"><div class="invest-card-title">Investment Amount</div></div>
+        <div class="invest-card-body">
+          <div style="margin-bottom:16px">
+            <label style="display:block;font-size:10px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:var(--text-muted);margin-bottom:8px">SAFE Purchase Amount (USD)</label>
+            <input type="text" class="field-input" id="inv-amt" placeholder="$100,000" style="background:var(--cream);color:var(--navy);font-family:'Instrument Serif',serif;font-size:22px;padding:14px;border-color:rgba(0,0,0,.08)" oninput="fmtAmt(this)">
+            <div style="font-size:10px;color:var(--text-muted);margin-top:6px">Minimum: $25,000</div>
+          </div>
+          <div>
+            <label style="display:block;font-size:10px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:var(--text-muted);margin-bottom:8px">Investor Legal Name / Entity</label>
+            <input type="text" class="field-input" id="inv-name" placeholder="Full legal name or entity" style="background:var(--cream);color:var(--navy);border-color:rgba(0,0,0,.08)">
+          </div>
+          <div style="text-align:right;margin-top:16px"><a href="CARTA_INVESTOR_LINK_HERE" target="_blank" class="btn btn-gold" style="text-decoration:none">Continue on Carta &rarr;</a></div>
+        </div>
+      </div>
+
+      <div class="impl-banner">
+        <h4>Carta Integration</h4>
+        <p>This portal connects directly to Carta for secure SAFE execution:</p>
+        <ul>
+          <li><strong>Electronic Signature</strong> &mdash; Carta generates your pre-filled SAFE and handles e-signature for both parties.</li>
+          <li><strong>Accredited Investor Verification</strong> &mdash; Carta verifies accredited status as part of the signing flow.</li>
+          <li><strong>Wire Instructions</strong> &mdash; Provided automatically after signature. ACH also available.</li>
+          <li><strong>Cap Table</strong> &mdash; Your SAFE is logged to InPursuit's cap table instantly. Full transparency on conversion terms.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-l">InPursuit Health, LLC &nbsp;|&nbsp; CMS Health IT Ecosystem Approved &nbsp;|&nbsp; www.InPursuitHealth.com</div>
+        <div class="footer-r">Confidential</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+/* CAPTCHA */
+var cA,cB;
+function genC(){cA=Math.floor(Math.random()*9)+2;cB=Math.floor(Math.random()*9)+2;document.getElementById('cq').textContent=cA+' \u00d7 '+cB}
+genC();
+
+/* GATE */
+var gStep=1;
+function gateNext(){
+  if(gStep===1){
+    var f=document.getElementById('fname').value.trim(),l=document.getElementById('lname').value.trim(),e=document.getElementById('email').value.trim(),a=parseInt(document.getElementById('ca').value);
+    if(!f||!l||!e||a!==cA*cB){document.getElementById('err1').classList.add('show');if(a!==cA*cB)genC();return}
+    document.getElementById('err1').classList.remove('show');
+    document.getElementById('gs1').classList.remove('active');document.getElementById('gs2').classList.add('active');
+    document.getElementById('sd1').classList.remove('active');document.getElementById('sd2').classList.add('active');
+    document.getElementById('gate-btn').textContent='Enter Portal \u2192';gStep=2;
+  } else {
+    var checks=[document.getElementById('ai1'),document.getElementById('ai2'),document.getElementById('ai3'),document.getElementById('ai4')];
+    if(!checks.some(function(c){return c.checked})||!document.getElementById('ai-attest').checked){document.getElementById('err2').classList.add('show');return}
+    document.getElementById('err2').classList.remove('show');
+    var name=document.getElementById('fname').value+' '+document.getElementById('lname').value;
+    document.getElementById('nav-user').textContent=name;
+    document.getElementById('inv-name').value=name;
+    document.getElementById('gate').style.display='none';
+    document.getElementById('portal').style.display='block';
+  }
+}
+
+/* PORTAL NAV */
+function showSection(id,el){
+  document.querySelectorAll('.portal-section').forEach(function(s){s.classList.remove('active')});
+  document.getElementById('sec-'+id).classList.add('active');
+  document.querySelectorAll('.nav-link').forEach(function(l){l.classList.remove('active')});
+  if(el)el.classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+/* FOLDER TABS */
+document.querySelectorAll('.folder-tab').forEach(function(tab){
+  tab.addEventListener('click',function(){
+    var id=this.getAttribute('data-tab');
+    document.querySelectorAll('.folder-tab').forEach(function(t){t.classList.remove('active')});
+    this.classList.add('active');
+    document.querySelectorAll('.folder-page').forEach(function(p){p.classList.remove('active')});
+    document.getElementById('fp-'+id).classList.add('active');
+  });
+});
+
+/* DOCSEND / DOCUMENT LINKS */
+var DOCSEND_LINKS = {
+  'InPursuit_SAFE_OnePager.pdf':   '',
+  'InPursuit_SAFE_OnePager.docx':  '',
+  'InPursuit_SeriesA_Overview.pdf': '',
+  'InPursuit_SeriesA_Overview.docx':'',
+  'InPursuit_Infrastructure_Thesis.pdf':'',
+  'InPursuit_Infrastructure_Thesis.docx':'',
+  'InPursuit_SeriesA_Returns.pdf': '',
+  'InPursuit_SeriesA_Returns.docx':''
+};
+
+function handleDownload(filename){
+  var url=DOCSEND_LINKS[filename];
+  if(url && url.length>0){window.open(url,'_blank')}
+  else{alert('Document: '+filename+'\n\nThis document has not been connected yet.\n\n1. Upload '+filename+' to DocSend\n2. Copy the link\n3. Paste it in the DOCSEND_LINKS section of this file')}
+}
+
+function fmtAmt(el){var v=el.value.replace(/[^0-9]/g,'');el.value=v?'$'+parseInt(v).toLocaleString():''}
+</script>
+<script src="nav.js"></script>
+</body>
+</html>
