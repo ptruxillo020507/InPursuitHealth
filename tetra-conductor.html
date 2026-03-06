@@ -922,7 +922,22 @@ footer {
 <body>
 
 <!-- NAV -->
-
+<header class="top-bar" id="topBar">
+  <div class="top-bar-inner">
+    <a href="https://www.inpursuithealth.com/" class="top-bar-brand">
+      <div class="brand-mark">I</div>
+      <span class="top-bar-wordmark">InPursuit Health</span>
+    </a>
+    <nav class="top-bar-nav">
+      <a href="https://www.inpursuithealth.com/tetra" class="nav-item">TETRA</a>
+      <a href="#stack" class="nav-item">The Stack</a>
+      <a href="#orchestration" class="nav-item">How It Works</a>
+      <a href="#use-cases" class="nav-item">Use Cases</a>
+      <a href="#faq" class="nav-item">FAQ</a>
+    </nav>
+    <a href="mailto:info@inpursuithealth.com" class="nav-cta">Request Demo</a>
+  </div>
+</header>
 
 <!-- HERO -->
 <section class="hero">
@@ -932,7 +947,7 @@ footer {
   <p class="hero-sub-name">Model-Agnostic AI Orchestration Infrastructure</p>
   <p class="hero-desc">The intelligent routing layer that sits between clinical need and AI capability — evaluating in real-time which model, which agent, which intelligence is best for this patient, this data, this moment. AI models become as easy to change as shoes. The infrastructure beneath them never moves.</p>
   <div class="hero-actions">
-    <a href="/cdn-cgi/l/email-protection#8be2e5ede4cbe2e5fbfef9f8fee2ffe3eeeae7ffe3a5e8e4e6" class="btn-gold">Request a Demo</a>
+    <a href="mailto:info@inpursuithealth.com" class="btn-gold">Request a Demo</a>
     <a href="#stack" class="btn-outline">See Where It Fits ↓</a>
   </div>
 </section>
@@ -1513,7 +1528,7 @@ footer {
     <h2>The infrastructure beneath the AI<br>matters more than <em>the AI itself.</em></h2>
     <p>Whether you're a health system evaluating clinical AI deployment, a technology partner building on TETRA infrastructure, or an investor evaluating the foundational layer of healthcare's AI transformation — TETRA Conductor™ is the architecture that makes it all work.</p>
     <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;">
-      <a class="btn-gold" href="/cdn-cgi/l/email-protection#4b22252d240b22253b3e39383e223f232e2a273f2365282426">Request a Demo →</a>
+      <a class="btn-gold" href="mailto:info@inpursuithealth.com">Request a Demo →</a>
       <a class="btn-outline" href="https://www.inpursuithealth.com/">Visit InPursuit Health</a>
     </div>
   </div>
@@ -1532,7 +1547,7 @@ footer {
     <a href="https://www.inpursuithealth.com/">Partner Network</a>
     <a href="https://www.inpursuithealth.com/">About Us</a>
     <a href="https://www.inpursuithealth.com/">Leadership</a>
-    <a href="/cdn-cgi/l/email-protection#cea7a0a8a18ea7a0bebbbcbdbba7baa6abafa2baa6e0ada1a3">Contact</a>
+    <a href="mailto:info@inpursuithealth.com">Contact</a>
   </nav>
   <div class="footer-legal">
     <span>© 2026 InPursuit Health, LLC. All rights reserved. Patent pending.</span>
@@ -1540,7 +1555,7 @@ footer {
   </div>
 </footer>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script>
 // Nav scroll shadow
 window.addEventListener('scroll', function() {
   document.getElementById('topBar').classList.toggle('scrolled', window.scrollY > 10);
@@ -1906,7 +1921,18 @@ function toggleFaq(btn) {
     resize();
     var count=Math.min(60,Math.floor((W*H)/16000));
     nodes=[];
+    for(var i=0;i<count;i++){var n=new Node(); n.init(); nodes.push(n);}
+    requestAnimationFrame(frame);
+  }
+
+  window.addEventListener('resize',function(){
+    resize();
+    nodes.forEach(function(n){if(n.x>W||n.y>H) n.init();});
+  });
+
+  setTimeout(init,80);
+})();
+
 </script>
-<script src="nav.js"></script>
 </body>
 </html>

@@ -540,10 +540,10 @@ input[type=range]:hover::-webkit-slider-thumb{box-shadow:0 0 0 4px rgba(201,151,
 </style>
 
 <!-- Nav injected by nav.js -->
-
+<script src="nav.js"></script>
 
 <!-- Nav injected by nav.js -->
-
+<script src="nav.js"></script>
 
 <!-- ===== HERO ===== -->
 <section class="hero">
@@ -876,6 +876,5 @@ const reveals=document.querySelectorAll('.reveal');
 const io=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');});},{threshold:0.1});
 reveals.forEach(el=>io.observe(el));
 </script>
-<script src="nav.js"></script>
 </body>
 </html>

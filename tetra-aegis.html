@@ -19,18 +19,13 @@ html{scroll-behavior:smooth;}
 body{font-family:'Instrument Sans',sans-serif;background:var(--navy-deep);color:var(--text-light);overflow-x:hidden;-webkit-font-smoothing:antialiased;}
 
 /* ── PRELOADER ── */
-.preloader{position:fixed;inset:0;background:var(--navy-deep);z-index:10000;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:24px;transition:opacity 0.8s,visibility 0.8s;}
-.preloader.hidden{opacity:0;visibility:hidden;pointer-events:none;}
-.preloader-shield{width:64px;height:64px;}
-.preloader-shield svg{width:100%;height:100%;animation:shieldPulse 1.5s ease-in-out infinite;}
 @keyframes shieldPulse{0%,100%{opacity:0.3;transform:scale(0.95);}50%{opacity:1;transform:scale(1.05);}}
-.preloader-text{font-family:'Instrument Serif',serif;font-size:22px;color:var(--gold);letter-spacing:3px;animation:pf 1.2s ease-in-out infinite;}
 @keyframes pf{0%,100%{opacity:0.3;}50%{opacity:1;}}
 
 /* ── HERO ── */
 .hero{position:relative;min-height:100vh;display:flex;align-items:center;justify-content:center;overflow:hidden;padding:100px 40px 80px;}
 #heroCanvas{position:absolute;inset:0;z-index:1;}
-.hero-vig{position:absolute;inset:0;z-index:2;background:radial-gradient(ellipse at 50% 50%,transparent 35%,var(--navy-deep) 85%);pointer-events:none;}
+.hero-vig{position:absolute;inset:0;z-index:2;background:radial-gradient(ellipse at 50% 50%,transparent 25%,var(--navy-deep) 80%);pointer-events:none;}
 .hero-top{position:absolute;top:0;left:0;right:0;height:200px;z-index:2;background:linear-gradient(to bottom,var(--navy-deep),transparent);pointer-events:none;}
 .hero-content{position:relative;z-index:3;max-width:880px;width:100%;text-align:center;}
 .hero-badge{display:inline-flex;align-items:center;gap:10px;padding:8px 22px;background:rgba(197,164,78,0.05);border:1px solid rgba(197,164,78,0.18);border-radius:100px;font-size:10px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:40px;animation:fu .8s ease both;}
@@ -90,139 +85,136 @@ body{font-family:'Instrument Sans',sans-serif;background:var(--navy-deep);color:
 .dci h3{font-family:'Instrument Serif',serif;font-size:28px;font-weight:400;color:var(--white);margin-bottom:10px;}
 .dci .tl{font-size:15px;color:rgba(255,255,255,.42);line-height:1.7;font-style:italic;}
 
-/* ── ARCH DIAGRAM ── */
-.arch{margin-top:72px;position:relative;padding:56px 40px 48px;border-radius:24px;overflow:hidden;background:#070d18;border:1px solid rgba(197,164,78,0.08);}
-.arch::before{content:'';position:absolute;inset:0;
-  background:linear-gradient(rgba(197,164,78,0.02) 1px,transparent 1px),linear-gradient(90deg,rgba(197,164,78,0.02) 1px,transparent 1px);
-  background-size:40px 40px;mask-image:radial-gradient(ellipse 70% 60% at 50% 50%,black,transparent);-webkit-mask-image:radial-gradient(ellipse 70% 60% at 50% 50%,black,transparent);pointer-events:none;z-index:0;}
-.arch::after{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:600px;height:400px;background:radial-gradient(ellipse,rgba(197,164,78,0.035),transparent 65%);pointer-events:none;z-index:0;}
-.arch-scan{position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:1;}
-.arch-scan::before{content:'';position:absolute;top:-100%;left:0;width:100%;height:200%;background:linear-gradient(180deg,transparent 46%,rgba(197,164,78,0.02) 50%,transparent 54%);animation:scanV 5s linear infinite;}
-@keyframes scanV{0%{transform:translateY(0);}100%{transform:translateY(50%);}}
+/* ── ARCH DIAGRAM — LIVING SYSTEM ── */
+.arch{margin-top:60px;position:relative;padding:48px 32px;border-radius:20px;overflow:hidden;background:#080f1c;}
+.arch::before{content:'';position:absolute;inset:0;background:
+  linear-gradient(rgba(197,164,78,0.03) 1px,transparent 1px),
+  linear-gradient(90deg,rgba(197,164,78,0.03) 1px,transparent 1px);
+  background-size:32px 32px;animation:archGrid 40s linear infinite;pointer-events:none;z-index:0;}
+@keyframes archGrid{0%{transform:translate(0,0);}100%{transform:translate(32px,32px);}}
+.arch::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 40%,rgba(197,164,78,0.04),transparent 60%);pointer-events:none;z-index:0;}
 
-.arch-flow{display:flex;align-items:center;gap:0;position:relative;z-index:2;max-width:1060px;margin:0 auto;}
-.arch-endpoint{flex:0 0 148px;text-align:center;}
-.arch-connector{flex:0 0 56px;display:flex;align-items:center;justify-content:center;position:relative;height:100px;}
+/* Scan line */
+.arch-scan{position:absolute;top:0;left:0;width:100%;height:100%;overflow:hidden;pointer-events:none;z-index:1;}
+.arch-scan::before{content:'';position:absolute;top:-100%;left:0;width:100%;height:200%;
+  background:linear-gradient(180deg,transparent 45%,rgba(197,164,78,0.03) 50%,transparent 55%);
+  animation:scanDown 6s linear infinite;}
+@keyframes scanDown{0%{transform:translateY(0);}100%{transform:translateY(50%)}}
+
+/* Layout */
+.arch-flow{display:flex;align-items:center;gap:0;position:relative;z-index:2;max-width:1020px;margin:0 auto;}
+.arch-endpoint{flex:0 0 130px;text-align:center;}
+.arch-connector{flex:0 0 60px;display:flex;align-items:center;justify-content:center;position:relative;height:80px;}
 .arch-plane{flex:1;min-width:0;}
 
-/* Endpoint boxes */
-.arch-box{border:1px solid rgba(197,164,78,0.12);border-radius:16px;padding:28px 18px;
-  background:linear-gradient(165deg,rgba(17,34,64,0.7),rgba(10,22,40,0.9));position:relative;
-  box-shadow:0 8px 40px rgba(0,0,0,0.4),inset 0 1px 0 rgba(255,255,255,0.03);transition:all 0.4s;}
-.arch-box:hover{border-color:rgba(197,164,78,0.25);transform:translateY(-3px);box-shadow:0 16px 56px rgba(0,0,0,0.5),0 0 24px rgba(197,164,78,0.04);}
-.arch-box::before{content:'';position:absolute;top:0;left:20%;right:20%;height:1px;background:linear-gradient(90deg,transparent,rgba(197,164,78,0.15),transparent);}
-.arch-box-icon{width:40px;height:40px;margin:0 auto 14px;border-radius:10px;display:flex;align-items:center;justify-content:center;background:rgba(197,164,78,0.05);border:1px solid rgba(197,164,78,0.1);}
-.arch-box-icon svg{width:20px;height:20px;}
-.arch-box-title{font-family:'Instrument Serif',serif;font-size:20px;color:var(--white);margin-bottom:6px;}
-.arch-box-sub{font-size:11px;color:rgba(255,255,255,0.3);line-height:1.5;}
+/* Endpoints */
+.arch-box{
+  border:1px solid rgba(197,164,78,0.15);border-radius:14px;padding:24px 16px;
+  background:linear-gradient(135deg,#0c1829,#0f1e36);position:relative;
+  box-shadow:0 0 30px rgba(197,164,78,0.03),inset 0 1px 0 rgba(197,164,78,0.06);
+  animation:boxBreathe 4s ease-in-out infinite;
+}
+@keyframes boxBreathe{0%,100%{box-shadow:0 0 20px rgba(197,164,78,0.03),inset 0 1px 0 rgba(197,164,78,0.06);}50%{box-shadow:0 0 35px rgba(197,164,78,0.06),inset 0 1px 0 rgba(197,164,78,0.1);}}
+.arch-box-title{font-family:'Instrument Serif',serif;font-size:18px;color:var(--white);margin-bottom:6px;}
+.arch-box-sub{font-size:10px;color:rgba(255,255,255,0.35);line-height:1.5;letter-spacing:0.3px;}
 
-/* Animated connectors */
-.arch-connector-line{position:absolute;width:100%;height:2px;top:50%;transform:translateY(-50%);overflow:hidden;}
-.arch-connector-line::before{content:'';position:absolute;inset:0;background:linear-gradient(90deg,rgba(197,164,78,0.04),rgba(197,164,78,0.12),rgba(197,164,78,0.04));}
-.arch-connector-dot{position:absolute;width:8px;height:8px;border-radius:50%;top:50%;transform:translateY(-50%);
-  background:radial-gradient(circle,var(--gold),rgba(197,164,78,0.3));box-shadow:0 0 14px rgba(197,164,78,0.6),0 0 4px var(--gold);animation:flowDot 2.2s ease-in-out infinite;}
-.arch-connector-dot::after{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:24px;height:24px;border-radius:50%;background:radial-gradient(circle,rgba(197,164,78,0.12),transparent);}
-@keyframes flowDot{0%{left:-10px;opacity:0;}15%{opacity:1;}85%{opacity:1;}100%{left:calc(100% + 10px);opacity:0;}}
-.arch-connector-label{position:absolute;font-size:8px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;white-space:nowrap;top:-22px;left:50%;transform:translateX(-50%);}
-.arch-connector-label.left{color:var(--gold);}
-.arch-connector-label.right{color:#27AE60;}
+/* Connectors — animated flowing dots */
+.arch-connector-line{position:absolute;width:100%;height:2px;top:50%;transform:translateY(-50%);}
+.arch-connector-line::before{content:'';position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(197,164,78,0.2),transparent);}
+.arch-connector-dot{position:absolute;width:6px;height:6px;border-radius:50%;background:var(--gold);top:50%;transform:translateY(-50%);animation:flowDot 2s ease-in-out infinite;box-shadow:0 0 8px rgba(197,164,78,0.6);}
+@keyframes flowDot{0%{left:-6px;opacity:0;}20%{opacity:1;}80%{opacity:1;}100%{left:calc(100% + 6px);opacity:0;}}
+.arch-connector-label{position:absolute;font-size:8px;font-weight:700;letter-spacing:2px;text-transform:uppercase;white-space:nowrap;}
+.arch-connector-label.left{left:50%;top:-18px;transform:translateX(-50%);color:var(--gold);}
+.arch-connector-label.right{left:50%;top:-18px;transform:translateX(-50%);color:#27AE60;}
 
 /* Control Plane */
-.arch-cp{border:1px solid rgba(197,164,78,0.15);border-radius:20px;padding:28px 24px 24px;position:relative;overflow:hidden;
-  background:linear-gradient(170deg,rgba(10,22,40,0.95),rgba(8,15,28,0.98));box-shadow:0 4px 80px rgba(0,0,0,0.4),inset 0 1px 0 rgba(197,164,78,0.05);}
-.arch-cp::before{content:'';position:absolute;top:0;left:10%;right:10%;height:1px;background:linear-gradient(90deg,transparent,rgba(197,164,78,0.25),transparent);}
-.arch-cp-title{text-align:center;font-size:11px;font-weight:700;letter-spacing:5px;text-transform:uppercase;color:var(--gold);margin-bottom:20px;position:relative;z-index:2;}
+.arch-cp{
+  border:1px solid rgba(197,164,78,0.2);border-radius:16px;
+  padding:20px;position:relative;overflow:hidden;
+  background:linear-gradient(160deg,rgba(10,22,40,0.95),rgba(17,34,64,0.8));
+  box-shadow:0 0 60px rgba(197,164,78,0.04),inset 0 0 40px rgba(197,164,78,0.015);
+}
+.arch-cp-title{text-align:center;font-size:10px;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:var(--gold);margin-bottom:16px;position:relative;z-index:2;}
 
-/* Sentinel boundary */
-.arch-sentinel{border:1px solid rgba(197,164,78,0.1);border-radius:16px;padding:20px 18px;position:relative;overflow:hidden;
-  background:rgba(197,164,78,0.008);animation:sentPulse 4s ease-in-out infinite;}
-@keyframes sentPulse{0%,100%{border-color:rgba(197,164,78,0.08);box-shadow:inset 0 0 30px rgba(197,164,78,0.008);}50%{border-color:rgba(197,164,78,0.18);box-shadow:inset 0 0 40px rgba(197,164,78,0.02);}}
-.arch-sentinel::before,.arch-sentinel::after{content:'';position:absolute;width:20px;height:20px;border-color:rgba(197,164,78,0.18);border-style:solid;border-width:0;}
-.arch-sentinel::before{top:8px;left:8px;border-top-width:1px;border-left-width:1px;border-radius:3px 0 0 0;}
-.arch-sentinel::after{bottom:8px;right:8px;border-bottom-width:1px;border-right-width:1px;border-radius:0 0 3px 0;}
-.arch-sentinel-title{text-align:center;font-size:9px;font-weight:700;letter-spacing:3.5px;text-transform:uppercase;color:var(--gold);margin-bottom:16px;display:flex;align-items:center;justify-content:center;gap:12px;}
-.arch-sentinel-title::before,.arch-sentinel-title::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,transparent,rgba(197,164,78,0.1),transparent);}
+/* Sentinel boundary — glowing */
+.arch-sentinel{
+  border:1px dashed rgba(197,164,78,0.25);border-radius:12px;
+  padding:16px;position:relative;
+  background:rgba(197,164,78,0.015);
+  animation:sentinelPulse 3s ease-in-out infinite;
+}
+@keyframes sentinelPulse{0%,100%{border-color:rgba(197,164,78,0.15);box-shadow:0 0 15px rgba(197,164,78,0.02);}50%{border-color:rgba(197,164,78,0.35);box-shadow:0 0 30px rgba(197,164,78,0.06);}}
+.arch-sentinel-title{text-align:center;font-size:9px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:14px;display:flex;align-items:center;justify-content:center;gap:8px;}
+.arch-sentinel-title::before,.arch-sentinel-title::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,transparent,rgba(197,164,78,0.15),transparent);}
 
 /* Pipeline stages */
-.arch-pipeline{display:flex;gap:6px;margin-bottom:14px;align-items:stretch;}
-.arch-stage{flex:1;border:1px solid rgba(197,164,78,0.07);border-radius:12px;padding:18px 10px 16px;text-align:center;position:relative;overflow:hidden;
-  background:linear-gradient(180deg,rgba(12,22,40,0.85),rgba(8,16,30,0.95));transition:all 0.4s;cursor:default;}
-.arch-stage::before{content:'';position:absolute;top:0;left:20%;right:20%;height:2px;background:linear-gradient(90deg,transparent,var(--gold),transparent);opacity:0;transition:all 0.4s;filter:blur(1px);}
-.arch-stage:hover{border-color:rgba(197,164,78,0.22);transform:translateY(-3px);box-shadow:0 12px 40px rgba(0,0,0,0.5),0 0 20px rgba(197,164,78,0.025);}
-.arch-stage:hover::before{opacity:1;left:10%;right:10%;}
-.arch-stage-icon{width:34px;height:34px;margin:0 auto 10px;border-radius:9px;display:flex;align-items:center;justify-content:center;background:rgba(197,164,78,0.04);border:1px solid rgba(197,164,78,0.08);}
-.arch-stage-icon svg{width:16px;height:16px;}
-.arch-stage-label{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:6px;}
-.arch-stage-desc{font-size:10px;color:rgba(255,255,255,0.28);line-height:1.45;}
-.arch-stage-arrow{flex:0 0 auto;display:flex;align-items:center;padding:0 1px;}
-.arch-stage-arrow svg{width:16px;height:16px;}
+.arch-pipeline{display:flex;gap:8px;margin-bottom:12px;}
+.arch-stage{
+  flex:1;border:1px solid rgba(197,164,78,0.1);border-radius:10px;
+  padding:14px 10px;text-align:center;position:relative;overflow:hidden;
+  background:linear-gradient(180deg,#0a1425,#0d1a30);
+  transition:all 0.4s;cursor:default;
+}
+.arch-stage::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--gold),transparent);opacity:0;transition:opacity 0.4s;}
+.arch-stage:hover{border-color:rgba(197,164,78,0.3);transform:translateY(-2px);box-shadow:0 8px 30px rgba(0,0,0,0.4);}
+.arch-stage:hover::before{opacity:1;}
+.arch-stage-label{font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:6px;}
+.arch-stage-desc{font-size:10px;color:rgba(255,255,255,0.3);line-height:1.4;}
 
-/* Decide stage */
-.arch-stage.decide{border-color:rgba(197,164,78,0.1);}
-.decide-row{display:flex;align-items:center;gap:6px;justify-content:center;margin-top:4px;}
-.decide-dot{width:6px;height:6px;border-radius:50%;}
-.decide-dot.green{background:#27AE60;box-shadow:0 0 8px rgba(39,174,96,0.5);animation:bDot 2.5s ease-in-out infinite;}
-.decide-dot.gold{background:#C5A44E;box-shadow:0 0 8px rgba(197,164,78,0.5);animation:bDot 2.5s ease-in-out 0.4s infinite;}
-.decide-dot.red{background:#C0392B;box-shadow:0 0 8px rgba(192,57,43,0.5);animation:bDot 2.5s ease-in-out 0.8s infinite;}
-@keyframes bDot{0%,100%{opacity:0.3;transform:scale(0.8);}50%{opacity:1;transform:scale(1.2);}}
-.decide-label{font-size:9px;font-weight:600;letter-spacing:0.5px;}
-.decide-label.g{color:rgba(39,174,96,0.75);}.decide-label.y{color:rgba(197,164,78,0.65);}.decide-label.r{color:rgba(192,57,43,0.75);}
+/* Flow arrows between stages */
+.arch-stage-arrow{flex:0 0 auto;display:flex;align-items:center;padding:0 2px;position:relative;}
+.arch-stage-arrow svg{width:14px;height:14px;opacity:0.25;}
 
-/* Sub-systems */
-.arch-subs{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px;}
-.arch-sub{border:1px solid rgba(197,164,78,0.05);border-radius:10px;padding:14px 12px;text-align:center;
-  background:linear-gradient(180deg,rgba(12,22,40,0.6),rgba(8,16,30,0.7));transition:all 0.3s;}
-.arch-sub:hover{border-color:rgba(197,164,78,0.12);}
-.arch-sub-title{font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:rgba(197,164,78,0.65);margin-bottom:4px;}
-.arch-sub-desc{font-size:9px;color:rgba(255,255,255,0.2);letter-spacing:0.3px;}
+/* Decide stage — special */
+.arch-stage.decide{border-color:rgba(197,164,78,0.18);}
+.decide-row{display:flex;align-items:center;gap:5px;justify-content:center;margin-top:3px;}
+.decide-dot{width:5px;height:5px;border-radius:50%;}
+.decide-dot.green{background:#27AE60;box-shadow:0 0 6px rgba(39,174,96,0.5);animation:blinkG 2s ease-in-out infinite;}
+.decide-dot.gold{background:#C5A44E;box-shadow:0 0 6px rgba(197,164,78,0.5);animation:blinkY 2s ease-in-out 0.3s infinite;}
+.decide-dot.red{background:#C0392B;box-shadow:0 0 6px rgba(192,57,43,0.5);animation:blinkR 2s ease-in-out 0.6s infinite;}
+@keyframes blinkG{0%,100%{opacity:0.4;}50%{opacity:1;}}
+@keyframes blinkY{0%,100%{opacity:0.4;}50%{opacity:1;}}
+@keyframes blinkR{0%,100%{opacity:0.4;}50%{opacity:1;}}
+.decide-label{font-size:8px;font-weight:600;letter-spacing:0.5px;}
+.decide-label.g{color:#27AE60;}.decide-label.y{color:#C5A44E;}.decide-label.r{color:#C0392B;}
+
+/* Sub-systems row */
+.arch-subs{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px;}
+.arch-sub{
+  border:1px solid rgba(197,164,78,0.08);border-radius:10px;
+  padding:12px 10px;text-align:center;
+  background:linear-gradient(180deg,#0a1425,#0d1a30);
+}
+.arch-sub-title{font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold);margin-bottom:4px;}
+.arch-sub-desc{font-size:9px;color:rgba(255,255,255,0.25);letter-spacing:0.3px;}
 
 /* Audit bar */
-.arch-audit{display:grid;grid-template-columns:1fr 1fr;gap:0;border:1px solid rgba(197,164,78,0.04);border-radius:10px;overflow:hidden;background:rgba(6,14,26,0.7);}
-.arch-audit-cell{padding:14px;text-align:center;transition:all 0.3s;}
-.arch-audit-cell:first-child{border-right:1px solid rgba(197,164,78,0.04);}
-.arch-audit:hover .arch-audit-cell{background:rgba(197,164,78,0.008);}
-.arch-audit-title{font-size:8px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.16);margin-bottom:3px;}
-.arch-audit-desc{font-size:8px;color:rgba(255,255,255,0.09);}
+.arch-audit{
+  display:grid;grid-template-columns:1fr 1fr;gap:0;
+  border:1px solid rgba(197,164,78,0.06);border-radius:10px;overflow:hidden;
+  background:#080f1c;
+}
+.arch-audit-cell{padding:12px 14px;text-align:center;position:relative;}
+.arch-audit-cell:first-child{border-right:1px solid rgba(197,164,78,0.06);}
+.arch-audit-cell::before{content:'';position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:0;height:1px;background:var(--gold);transition:width 0.4s;opacity:0.3;}
+.arch-audit:hover .arch-audit-cell::before{width:80%;}
+.arch-audit-title{font-size:8px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,0.2);margin-bottom:3px;}
+.arch-audit-desc{font-size:8px;color:rgba(255,255,255,0.12);letter-spacing:0.3px;}
 
-/* ── DEPLOY DIAGRAM ── */
-.deploy-wrap{margin:48px 0;display:grid;grid-template-columns:1fr 1fr;gap:20px;position:relative;}
-.deploy-bridge{position:absolute;bottom:-16px;left:50%;transform:translateX(-50%);z-index:3;padding:8px 24px;border-radius:8px;
-  background:#070d18;border:1px solid rgba(197,164,78,0.18);font-size:9px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold);white-space:nowrap;box-shadow:0 4px 20px rgba(0,0,0,0.5);}
-.deploy-side{border:1px solid rgba(197,164,78,0.08);border-radius:20px;padding:32px 24px;position:relative;overflow:hidden;
-  background:linear-gradient(170deg,rgba(10,22,40,0.9),rgba(8,15,28,0.95));transition:all 0.4s;}
-.deploy-side:hover{border-color:rgba(197,164,78,0.18);box-shadow:0 16px 60px rgba(0,0,0,0.4);}
-.deploy-side::before{content:'';position:absolute;top:0;left:15%;right:15%;height:1px;background:linear-gradient(90deg,transparent,rgba(197,164,78,0.12),transparent);}
-.deploy-side-header{text-align:center;margin-bottom:24px;}
-.deploy-side-title{font-size:10px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:4px;}
-.deploy-side-tagline{font-family:'Instrument Serif',serif;font-size:14px;color:rgba(255,255,255,0.22);font-style:italic;}
-.deploy-flow{display:flex;align-items:center;gap:0;}
-.deploy-node{flex:0 0 auto;min-width:74px;text-align:center;border:1px solid rgba(197,164,78,0.07);border-radius:12px;padding:14px 10px;
-  background:rgba(6,14,26,0.8);transition:all 0.3s;}
-.deploy-node:hover{border-color:rgba(197,164,78,0.14);}
-.deploy-node-label{font-size:11px;font-weight:600;color:var(--white);margin-bottom:2px;}
-.deploy-node-sub{font-size:8px;color:rgba(255,255,255,0.22);}
-.deploy-arrow{flex:1;display:flex;align-items:center;justify-content:center;position:relative;height:32px;min-width:20px;}
-.deploy-arrow::before{content:'';position:absolute;top:50%;left:0;right:0;height:1px;background:linear-gradient(90deg,rgba(197,164,78,0.04),rgba(197,164,78,0.12),rgba(197,164,78,0.04));}
-.deploy-arrow-dot{width:5px;height:5px;border-radius:50%;position:absolute;top:50%;transform:translateY(-50%);
-  background:var(--gold);box-shadow:0 0 8px rgba(197,164,78,0.5);animation:flowDot 2s ease-in-out infinite;}
-.deploy-core{flex:1;min-width:0;border:1px solid rgba(197,164,78,0.12);border-radius:14px;padding:16px 12px;text-align:center;position:relative;overflow:hidden;
-  background:rgba(197,164,78,0.012);animation:sentPulse 4s ease-in-out infinite;}
-.deploy-core-title{font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:8px;}
-.deploy-core-sentinel{font-size:8px;font-weight:600;letter-spacing:1.5px;color:rgba(197,164,78,0.55);padding:6px 0;border:1px solid rgba(197,164,78,0.08);border-radius:6px;background:rgba(6,14,26,0.6);margin-bottom:6px;}
-.deploy-core-feat{font-size:9px;color:rgba(255,255,255,0.25);padding:4px 8px;border-radius:5px;border:1px solid rgba(197,164,78,0.03);background:rgba(6,14,26,0.4);margin-top:4px;}
+/* Stagger animations */
+.arch-stage:nth-child(1){animation:stageIn 0.6s ease 0.2s both;}
+.arch-stage:nth-child(3){animation:stageIn 0.6s ease 0.35s both;}
+.arch-stage:nth-child(5){animation:stageIn 0.6s ease 0.5s both;}
+.arch-stage:nth-child(7){animation:stageIn 0.6s ease 0.65s both;}
+@keyframes stageIn{from{opacity:0;transform:translateY(12px);}to{opacity:1;transform:translateY(0);}}
 
 @media(max-width:900px){
-  .arch{padding:32px 20px;}
-  .arch-flow{flex-direction:column;gap:20px;}
-  .arch-endpoint{flex:none;width:180px;margin:0 auto;}
-  .arch-connector{height:44px;flex:none;}
-  .arch-connector-line{width:2px!important;height:100%!important;left:50%!important;top:0!important;transform:translateX(-50%)!important;}
-  .arch-connector-label{top:50%!important;left:auto!important;right:-48px!important;transform:translateY(-50%)!important;}
-  .arch-pipeline{flex-wrap:wrap;gap:8px;}
-  .arch-stage{min-width:calc(50% - 8px);}
+  .arch-flow{flex-direction:column;gap:16px;}
+  .arch-endpoint{flex:none;width:160px;}
+  .arch-connector{height:40px;flex:none;transform:rotate(90deg);}
+  .arch-pipeline{flex-wrap:wrap;}
+  .arch-stage{min-width:calc(50% - 16px);}
   .arch-stage-arrow{display:none;}
-  .deploy-wrap{grid-template-columns:1fr;}
-  .deploy-bridge{position:static;transform:none;text-align:center;margin:0 auto;}
 }
 
 /* ── VERTICALS ── */
@@ -262,6 +254,9 @@ body{font-family:'Instrument Sans',sans-serif;background:var(--navy-deep);color:
 .cta h2 em{font-style:italic;color:var(--gold);}
 .cta p{font-size:18px;color:rgba(255,255,255,.45);max-width:520px;margin:0 auto 48px;line-height:1.8;position:relative;z-index:2;}
 
+/* ── DEPLOY ── */
+.dw{margin:48px 0;}
+
 /* ── DIVIDER ── */
 .gd{height:1px;background:linear-gradient(90deg,transparent,rgba(197,164,78,.25),transparent);}
 
@@ -283,21 +278,10 @@ footer{padding:40px;border-top:1px solid var(--border);}
 
 /* ── RESPONSIVE ── */
 @media(max-width:900px){.section{padding:80px 24px;}.hero{padding:100px 24px 60px;}.pg{grid-template-columns:1fr 1fr;}.dc,.vg,.ig{grid-template-columns:1fr;}.si{grid-template-columns:60px 1fr;gap:16px;}.sn{font-size:36px;}.trust-inner{gap:20px;}}
-@media(max-width:600px){.pg{grid-template-columns:1fr;}}
+@media(max-width:600px){.pg{grid-template-columns:1fr;}.aw{padding:20px;}}
 </style>
 </head>
 <body>
-
-<!-- PRELOADER -->
-<div class="preloader" id="preloader">
-  <div class="preloader-shield">
-    <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M32 4L8 16v16c0 14.4 10.24 27.84 24 32 13.76-4.16 24-17.6 24-32V16L32 4z" stroke="#C5A44E" stroke-width="2" fill="none"/>
-      <path d="M26 32l6 6 10-12" stroke="#C5A44E" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-    </svg>
-  </div>
-  <div class="preloader-text">TETRA AEGIS</div>
-</div>
 
 <!-- ═══ HERO ═══ -->
 <section class="hero">
@@ -306,9 +290,13 @@ footer{padding:40px;border-top:1px solid var(--border);}
   <div class="hero-top"></div>
   <div class="hero-content">
     <div class="hero-badge"><span class="pd"></span>Patent-Pending AI Governance Infrastructure</div>
-    <h1>Before anyone talks to AI,<br>they talk to <em>TETRA Aegis™.</em></h1>
+    <h1>Before anyone talks to AI,<br>they talk to <em>TETRA Aegis.</em></h1>
     <p class="hero-sub">The first supervisory control layer between people and large AI models. We intercept, assess, and protect — before a single byte of sensitive data leaves your organization or your device.</p>
     <div class="hero-tagline">The AI that watches AI.™</div>
+    <div class="hero-actions">
+      <a href="mailto:info@inpursuithealth.com" class="btn-gold">Request a Demo</a>
+      <a href="#architecture" class="btn-outline">See the Architecture</a>
+    </div>
   </div>
 </section>
 
@@ -350,13 +338,13 @@ footer{padding:40px;border-top:1px solid var(--border);}
         <div class="ic" style="margin-bottom:20px"><svg viewBox="0 0 40 40" fill="none" stroke="#C5A44E" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 3L5 11v10c0 10 6.4 19.4 15 22 8.6-2.6 15-12 15-22V11L20 3z"/><path d="M20 11v10M15 16h10"/></svg></div>
         <div class="tag">TETRA Aegis™</div>
         <h3>The Architecture</h3>
-        <p class="tl">The control plane. The walls, the gates, the rules of passage. Nothing reaches an AI model without flowing through TETRA Aegis™ — that's an architectural constraint, not a policy.</p>
+        <p class="tl">The control plane. The walls, the gates, the rules of passage. Nothing reaches an AI model without flowing through TETRA Aegis — that's an architectural constraint, not a policy.</p>
       </div>
       <div class="dci reveal rd1">
         <div class="ic" style="margin-bottom:20px"><svg viewBox="0 0 40 40" fill="none" stroke="#C5A44E" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="20" cy="20" r="15"/><circle cx="20" cy="20" r="8"/><circle cx="20" cy="20" r="2" fill="#C5A44E"/><path d="M20 5v4M20 31v4M5 20h4M31 20h4"/></svg></div>
         <div class="tag">TETRA Sentinel™</div>
         <h3>The Hunter</h3>
-        <p class="tl">The intelligence inside TETRA Aegis™. It hunts, classifies, scores, decides. It's the AI that watches AI — actively analyzing every interaction in real time.</p>
+        <p class="tl">The intelligence inside TETRA Aegis. It hunts, classifies, scores, decides. It's the AI that watches AI — actively analyzing every interaction in real time.</p>
       </div>
     </div>
 
@@ -368,7 +356,6 @@ footer{padding:40px;border-top:1px solid var(--border);}
         <!-- YOU -->
         <div class="arch-endpoint">
           <div class="arch-box">
-            <div class="arch-box-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#C5A44E" stroke-width="1.5" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M5 20c0-3.9 3.1-7 7-7s7 3.1 7 7"/></svg></div>
             <div class="arch-box-title">YOU</div>
             <div class="arch-box-sub">Consumer · Clinician<br>or AI Agent</div>
           </div>
@@ -394,25 +381,21 @@ footer{padding:40px;border-top:1px solid var(--border);}
               <!-- Pipeline -->
               <div class="arch-pipeline">
                 <div class="arch-stage">
-                  <div class="arch-stage-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#C5A44E" stroke-width="1.5" stroke-linecap="round"><circle cx="12" cy="12" r="3"/><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg></div>
                   <div class="arch-stage-label">Intercept</div>
-                  <div class="arch-stage-desc">Capture prompt<br>at client layer</div>
+                  <div class="arch-stage-desc">Capture<br>prompt</div>
                 </div>
-                <div class="arch-stage-arrow"><svg viewBox="0 0 16 16" fill="none"><path d="M4 8h8M9 5l3 3-3 3" stroke="#C5A44E" stroke-width="1" stroke-linecap="round" opacity="0.25"/></svg></div>
+                <div class="arch-stage-arrow"><svg viewBox="0 0 14 14" fill="none"><path d="M4 7h6M8 5l2 2-2 2" stroke="#C5A44E" stroke-width="1.2" stroke-linecap="round"/></svg></div>
                 <div class="arch-stage">
-                  <div class="arch-stage-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#C5A44E" stroke-width="1.5" stroke-linecap="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg></div>
                   <div class="arch-stage-label">Classify</div>
                   <div class="arch-stage-desc">PII · PHI<br>Financial · Legal</div>
                 </div>
-                <div class="arch-stage-arrow"><svg viewBox="0 0 16 16" fill="none"><path d="M4 8h8M9 5l3 3-3 3" stroke="#C5A44E" stroke-width="1" stroke-linecap="round" opacity="0.25"/></svg></div>
+                <div class="arch-stage-arrow"><svg viewBox="0 0 14 14" fill="none"><path d="M4 7h6M8 5l2 2-2 2" stroke="#C5A44E" stroke-width="1.2" stroke-linecap="round"/></svg></div>
                 <div class="arch-stage">
-                  <div class="arch-stage-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#C5A44E" stroke-width="1.5" stroke-linecap="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div>
                   <div class="arch-stage-label">Score</div>
                   <div class="arch-stage-desc">Risk quantify<br>in &lt;200ms</div>
                 </div>
-                <div class="arch-stage-arrow"><svg viewBox="0 0 16 16" fill="none"><path d="M4 8h8M9 5l3 3-3 3" stroke="#C5A44E" stroke-width="1" stroke-linecap="round" opacity="0.25"/></svg></div>
+                <div class="arch-stage-arrow"><svg viewBox="0 0 14 14" fill="none"><path d="M4 7h6M8 5l2 2-2 2" stroke="#C5A44E" stroke-width="1.2" stroke-linecap="round"/></svg></div>
                 <div class="arch-stage decide">
-                  <div class="arch-stage-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#C5A44E" stroke-width="1.5" stroke-linecap="round"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div>
                   <div class="arch-stage-label">Decide</div>
                   <div class="decide-row"><span class="decide-dot green"></span><span class="decide-label g">Accept</span></div>
                   <div class="decide-row"><span class="decide-dot gold"></span><span class="decide-label y">Mediate</span></div>
@@ -458,7 +441,6 @@ footer{padding:40px;border-top:1px solid var(--border);}
         <!-- AI MODEL -->
         <div class="arch-endpoint">
           <div class="arch-box">
-            <div class="arch-box-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#C5A44E" stroke-width="1.5" stroke-linecap="round"><rect x="4" y="4" width="16" height="16" rx="3"/><circle cx="9" cy="10" r="1.5"/><circle cx="15" cy="10" r="1.5"/><path d="M9 15c0 0 1.5 2 3 2s3-2 3-2"/></svg></div>
             <div class="arch-box-title">AI Model</div>
             <div class="arch-box-sub">ChatGPT · Claude<br>Gemini · Clinical AI<br>or EHR System</div>
           </div>
@@ -477,65 +459,41 @@ footer{padding:40px;border-top:1px solid var(--border);}
     <div class="overline reveal">Two Missions. One Architecture.</div>
     <h2 class="sh reveal">AI safety for organizations.<br>AI privacy for <em>everyone.</em></h2>
     <p class="sd cen reveal">The same core supervisory technology, purpose-built for two critical markets that both lack protection today.</p>
-    <div class="deploy-wrap reveal">
-      <!-- ENTERPRISE -->
-      <div class="deploy-side">
-        <div class="deploy-side-header">
-          <div class="deploy-side-title">Aegis Enterprise</div>
-          <div class="deploy-side-tagline">"We prevent unsafe AI"</div>
-        </div>
-        <div class="deploy-flow">
-          <div class="deploy-node">
-            <div class="deploy-node-label">CVD Agent</div>
-            <div class="deploy-node-sub">(TA1)</div>
-          </div>
-          <div class="deploy-arrow"><div class="deploy-arrow-dot"></div></div>
-          <div class="deploy-core">
-            <div class="deploy-core-title">TETRA Aegis™</div>
-            <div class="deploy-core-sentinel">TETRA Sentinel™</div>
-            <div class="deploy-core-feat">Clinical Validation</div>
-            <div class="deploy-core-feat">Risk Scoring</div>
-            <div class="deploy-core-feat">Containment Mode</div>
-          </div>
-          <div class="deploy-arrow"><div class="deploy-arrow-dot" style="animation-delay:0.6s;"></div></div>
-          <div class="deploy-node">
-            <div class="deploy-node-label">EHR</div>
-            <div class="deploy-node-sub">via TETRA</div>
-          </div>
-        </div>
-      </div>
-      <!-- PERSONAL -->
-      <div class="deploy-side">
-        <div class="deploy-side-header">
-          <div class="deploy-side-title">Aegis Personal</div>
-          <div class="deploy-side-tagline">"We protect you from AI"</div>
-        </div>
-        <div class="deploy-flow">
-          <div class="deploy-node">
-            <div class="deploy-node-label">You</div>
-            <div class="deploy-node-sub">Browser · App</div>
-          </div>
-          <div class="deploy-arrow"><div class="deploy-arrow-dot" style="animation-delay:0.3s;"></div></div>
-          <div class="deploy-core">
-            <div class="deploy-core-title">TETRA Aegis™</div>
-            <div class="deploy-core-sentinel">TETRA Sentinel™</div>
-            <div class="deploy-core-feat">PII/PHI Detection</div>
-            <div class="deploy-core-feat">Auto-Redaction</div>
-            <div class="deploy-core-feat">Local Logging</div>
-          </div>
-          <div class="deploy-arrow"><div class="deploy-arrow-dot" style="animation-delay:0.9s;"></div></div>
-          <div class="deploy-node">
-            <div class="deploy-node-label">AI Model</div>
-            <div class="deploy-node-sub">ChatGPT · etc.</div>
-          </div>
-        </div>
-      </div>
-      <div class="deploy-bridge">Same Core Architecture</div>
+    <div class="dw reveal">
+      <svg viewBox="0 0 900 260" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:900px;margin:0 auto;display:block;">
+        <rect x="10" y="10" width="420" height="240" rx="14" fill="#0A1628" stroke="#C5A44E" stroke-width="1" stroke-opacity=".18"/>
+        <text x="220" y="36" text-anchor="middle" fill="#C5A44E" font-family="Instrument Sans,sans-serif" font-size="9" font-weight="700" letter-spacing="3">AEGIS ENTERPRISE</text>
+        <text x="220" y="52" text-anchor="middle" fill="rgba(255,255,255,.22)" font-family="Instrument Serif,serif" font-size="10" font-style="italic">"We prevent unsafe AI"</text>
+        <rect x="30" y="72" width="85" height="50" rx="8" fill="#060E1A" stroke="rgba(197,164,78,.08)"/><text x="72" y="95" text-anchor="middle" fill="#FFF" font-family="Instrument Sans,sans-serif" font-size="9" font-weight="600">CVD Agent</text><text x="72" y="110" text-anchor="middle" fill="rgba(255,255,255,.25)" font-family="Instrument Sans,sans-serif" font-size="7">(TA1)</text>
+        <line x1="115" y1="97" x2="148" y2="97" stroke="#C5A44E" stroke-width="1.5" stroke-dasharray="4,3" stroke-opacity=".4"/><polygon points="148,94 154,97 148,100" fill="#C5A44E" opacity=".6"/>
+        <rect x="155" y="68" width="130" height="165" rx="10" fill="rgba(197,164,78,.02)" stroke="#C5A44E" stroke-width="1" stroke-opacity=".2"/>
+        <text x="220" y="86" text-anchor="middle" fill="#C5A44E" font-family="Instrument Sans,sans-serif" font-size="8" font-weight="700" letter-spacing="2">TETRA AEGIS™</text>
+        <rect x="168" y="96" width="104" height="28" rx="5" fill="#060E1A" stroke="rgba(197,164,78,.15)"/><text x="220" y="114" text-anchor="middle" fill="#C5A44E" font-family="Instrument Sans,sans-serif" font-size="7" font-weight="600">TETRA Sentinel™</text>
+        <rect x="168" y="132" width="104" height="22" rx="5" fill="#060E1A" stroke="rgba(197,164,78,.06)"/><text x="220" y="147" text-anchor="middle" fill="rgba(255,255,255,.3)" font-family="Instrument Sans,sans-serif" font-size="7">Clinical Validation</text>
+        <rect x="168" y="160" width="104" height="22" rx="5" fill="#060E1A" stroke="rgba(197,164,78,.06)"/><text x="220" y="175" text-anchor="middle" fill="rgba(255,255,255,.3)" font-family="Instrument Sans,sans-serif" font-size="7">Risk Scoring</text>
+        <rect x="168" y="188" width="104" height="22" rx="5" fill="#060E1A" stroke="rgba(197,164,78,.06)"/><text x="220" y="203" text-anchor="middle" fill="rgba(255,255,255,.3)" font-family="Instrument Sans,sans-serif" font-size="7">Containment Mode</text>
+        <line x1="285" y1="97" x2="318" y2="97" stroke="#C5A44E" stroke-width="1.5" stroke-dasharray="4,3" stroke-opacity=".4"/><polygon points="318,94 324,97 318,100" fill="#C5A44E" opacity=".6"/>
+        <rect x="325" y="72" width="85" height="50" rx="8" fill="#060E1A" stroke="rgba(197,164,78,.08)"/><text x="367" y="92" text-anchor="middle" fill="#FFF" font-family="Instrument Sans,sans-serif" font-size="9" font-weight="600">EHR</text><text x="367" y="108" text-anchor="middle" fill="rgba(255,255,255,.25)" font-family="Instrument Sans,sans-serif" font-size="7">via TETRA</text>
+        <rect x="470" y="10" width="420" height="240" rx="14" fill="#0A1628" stroke="#C5A44E" stroke-width="1" stroke-opacity=".12"/>
+        <text x="680" y="36" text-anchor="middle" fill="#D4B96A" font-family="Instrument Sans,sans-serif" font-size="9" font-weight="700" letter-spacing="3">AEGIS PERSONAL</text>
+        <text x="680" y="52" text-anchor="middle" fill="rgba(255,255,255,.22)" font-family="Instrument Serif,serif" font-size="10" font-style="italic">"We protect you from AI"</text>
+        <rect x="490" y="72" width="85" height="50" rx="8" fill="#060E1A" stroke="rgba(197,164,78,.08)"/><text x="532" y="95" text-anchor="middle" fill="#FFF" font-family="Instrument Sans,sans-serif" font-size="9" font-weight="600">You</text><text x="532" y="110" text-anchor="middle" fill="rgba(255,255,255,.25)" font-family="Instrument Sans,sans-serif" font-size="7">Browser · App</text>
+        <line x1="575" y1="97" x2="608" y2="97" stroke="#C5A44E" stroke-width="1.5" stroke-dasharray="4,3" stroke-opacity=".4"/><polygon points="608,94 614,97 608,100" fill="#C5A44E" opacity=".6"/>
+        <rect x="615" y="68" width="130" height="165" rx="10" fill="rgba(197,164,78,.02)" stroke="#C5A44E" stroke-width="1" stroke-opacity=".2"/>
+        <text x="680" y="86" text-anchor="middle" fill="#C5A44E" font-family="Instrument Sans,sans-serif" font-size="8" font-weight="700" letter-spacing="2">TETRA AEGIS™</text>
+        <rect x="628" y="96" width="104" height="28" rx="5" fill="#060E1A" stroke="rgba(197,164,78,.15)"/><text x="680" y="114" text-anchor="middle" fill="#C5A44E" font-family="Instrument Sans,sans-serif" font-size="7" font-weight="600">TETRA Sentinel™</text>
+        <rect x="628" y="132" width="104" height="22" rx="5" fill="#060E1A" stroke="rgba(197,164,78,.06)"/><text x="680" y="147" text-anchor="middle" fill="rgba(255,255,255,.3)" font-family="Instrument Sans,sans-serif" font-size="7">PII/PHI Detection</text>
+        <rect x="628" y="160" width="104" height="22" rx="5" fill="#060E1A" stroke="rgba(197,164,78,.06)"/><text x="680" y="175" text-anchor="middle" fill="rgba(255,255,255,.3)" font-family="Instrument Sans,sans-serif" font-size="7">Auto-Redaction</text>
+        <rect x="628" y="188" width="104" height="22" rx="5" fill="#060E1A" stroke="rgba(197,164,78,.06)"/><text x="680" y="203" text-anchor="middle" fill="rgba(255,255,255,.3)" font-family="Instrument Sans,sans-serif" font-size="7">Local Logging</text>
+        <line x1="745" y1="97" x2="778" y2="97" stroke="#C5A44E" stroke-width="1.5" stroke-dasharray="4,3" stroke-opacity=".4"/><polygon points="778,94 784,97 778,100" fill="#C5A44E" opacity=".6"/>
+        <rect x="785" y="72" width="85" height="50" rx="8" fill="#060E1A" stroke="rgba(197,164,78,.08)"/><text x="827" y="92" text-anchor="middle" fill="#FFF" font-family="Instrument Sans,sans-serif" font-size="9" font-weight="600">AI Model</text><text x="827" y="108" text-anchor="middle" fill="rgba(255,255,255,.25)" font-family="Instrument Sans,sans-serif" font-size="7">ChatGPT · etc.</text>
+        <rect x="355" y="215" width="190" height="28" rx="8" fill="#060E1A" stroke="#C5A44E" stroke-width="1" stroke-opacity=".2"/><text x="450" y="233" text-anchor="middle" fill="#C5A44E" font-family="Instrument Sans,sans-serif" font-size="8" font-weight="700" letter-spacing="2">SAME CORE ARCHITECTURE</text>
+      </svg>
     </div>
     <div class="vg">
       <div class="vc reveal">
         <div class="viw"><svg viewBox="0 0 24 24" fill="none" stroke="#C5A44E" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M5 21V7l7-4 7 4v14"/><path d="M9 21v-6h6v6"/></svg></div>
-        <div class="vt">TETRA Aegis™ Enterprise</div>
+        <div class="vt">TETRA Aegis Enterprise</div>
         <h3>We Prevent Unsafe AI</h3>
         <p class="vtl">Clinical AI governance for healthcare organizations deploying autonomous agents.</p>
         <ul class="vf">
@@ -549,7 +507,7 @@ footer{padding:40px;border-top:1px solid var(--border);}
       </div>
       <div class="vc reveal rd1">
         <div class="viw"><svg viewBox="0 0 24 24" fill="none" stroke="#C5A44E" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L4 7v5c0 5.55 3.84 10.74 8 12 4.16-1.26 8-6.45 8-12V7l-8-5z"/><path d="M9 12l2 2 4-4"/></svg></div>
-        <div class="vt">TETRA Aegis™ Personal</div>
+        <div class="vt">TETRA Aegis Personal</div>
         <h3>We Protect You from AI</h3>
         <p class="vtl">The privacy governor for everyone who uses ChatGPT, Gemini, Claude, or any AI tool.</p>
         <ul class="vf">
@@ -572,12 +530,12 @@ footer{padding:40px;border-top:1px solid var(--border);}
   <div class="section-inner">
     <div class="text-center">
       <div class="overline reveal">Under the Hood</div>
-      <h2 class="sh reveal">Meet <em>TETRA Sentinel™.</em></h2>
-      <p class="sd cen reveal">The supervisory AI agent living inside TETRA Aegis™. It evaluates and mediates your communications to any remote AI model — whether that's ChatGPT, a clinical AI agent, or any future model. Your AI's AI.</p>
+      <h2 class="sh reveal">Meet <em>TETRA Sentinel.</em></h2>
+      <p class="sd cen reveal">The supervisory AI agent living inside TETRA Aegis. It evaluates and mediates your communications to any remote AI model — whether that's ChatGPT, a clinical AI agent, or any future model. Your AI's AI.</p>
     </div>
     <div class="ss">
-      <div class="si reveal"><div class="sn">01</div><div><h4>Pre-Submission Interception</h4><p>Every prompt is captured at the client layer before it reaches any external model. No data leaves without passing through TETRA Aegis™ first — this is an architectural constraint, not a policy.</p></div></div>
-      <div class="si reveal"><div class="sn">02</div><div><h4>Adaptive Sensitivity Classification</h4><p>TETRA Sentinel™ classifies content across multiple risk dimensions — medical, financial, legal, identity, and personal — using fine-tuned models optimized for speed and accuracy on-device.</p></div></div>
+      <div class="si reveal"><div class="sn">01</div><div><h4>Pre-Submission Interception</h4><p>Every prompt is captured at the client layer before it reaches any external model. No data leaves without passing through TETRA Aegis first — this is an architectural constraint, not a policy.</p></div></div>
+      <div class="si reveal"><div class="sn">02</div><div><h4>Adaptive Sensitivity Classification</h4><p>TETRA Sentinel classifies content across multiple risk dimensions — medical, financial, legal, identity, and personal — using fine-tuned models optimized for speed and accuracy on-device.</p></div></div>
       <div class="si reveal"><div class="sn">03</div><div><h4>Risk-Scored Decision Engine</h4><p>Each interaction receives a quantitative risk score. Low-risk prompts pass instantly. Medium-risk prompts are automatically sanitized. High-risk prompts trigger alerts or blocks — all in under 200ms.</p></div></div>
       <div class="si reveal"><div class="sn">04</div><div><h4>Transparent Audit &amp; Control</h4><p>Every decision is logged locally with full provenance. You see exactly what was modified and why. Enterprise deployments get centralized dashboards; consumers get a clean, simple privacy report.</p></div></div>
     </div>
@@ -590,8 +548,8 @@ footer{padding:40px;border-top:1px solid var(--border);}
 <section class="section section-alt" id="ip">
   <div class="section-inner text-center">
     <div class="overline reveal">Intellectual Property</div>
-    <h2 class="sh reveal">Patent-pending architecture.<br><em>Category-defining technology.</em></h2>
-    <p class="sd cen reveal">TETRA Aegis™'s core innovation — a supervisory AI mediation layer — represents a new category of AI governance infrastructure protected by a comprehensive patent strategy.</p>
+    <h2 class="sh reveal">Patent-pending architecture.<br><em>Category-defining</em> technology.</h2>
+    <p class="sd cen reveal">TETRA Aegis's core innovation — a supervisory AI mediation layer — represents a new category of AI governance infrastructure protected by a comprehensive patent strategy.</p>
     <div class="ig">
       <div class="ipx reveal"><div class="ipn">Claim Domain 1</div><h4>Client-Side Supervisory Mediation</h4><p>A local agent that intercepts, evaluates, and mediates all communications between a user and remote AI models before transmission.</p></div>
       <div class="ipx reveal rd1"><div class="ipn">Claim Domain 2</div><h4>Risk Scoring of Prompt Payloads</h4><p>Quantitative, multi-dimensional sensitivity analysis of AI prompts with adaptive threshold-based routing decisions.</p></div>
@@ -606,25 +564,21 @@ footer{padding:40px;border-top:1px solid var(--border);}
 <!-- ═══ CTA ═══ -->
 <section class="cta">
   <h2>The firewall for AI<br>starts <em>here.</em></h2>
-  <p>Whether you're a health system deploying autonomous agents or an individual who wants to keep your data private — TETRA Aegis™ is the missing layer.</p>
-  <div class="hero-actions"><a href="/cdn-cgi/l/email-protection#b1d8dfd7def1d8dfc1c4c3c2c4d8c5d9d4d0ddc5d99fd2dedc" class="btn-gold">Contact Us</a><a href="https://www.inpursuithealth.com/" class="btn-outline">Visit InPursuit Health</a></div>
+  <p>Whether you're a health system deploying autonomous agents or an individual who wants to keep your data private — TETRA Aegis is the missing layer.</p>
+  <div class="hero-actions"><a href="mailto:info@inpursuithealth.com" class="btn-gold">Contact Us</a><a href="https://www.inpursuithealth.com/" class="btn-outline">Visit InPursuit Health</a></div>
 </section>
 
 <!-- ═══ FOOTER ═══ -->
 <footer>
   <div class="fi">
     <div class="fl">© 2026 <a href="https://www.inpursuithealth.com/">InPursuit Health, LLC</a>. All rights reserved. Patent pending.</div>
-    <div class="fk"><a href="/cdn-cgi/l/email-protection#f39a9d959cb39a9d83868180869a879b96929f879bdd909c9e">Contact</a><a href="https://www.inpursuithealth.com/">Home</a></div>
+    <div class="fk"><a href="mailto:info@inpursuithealth.com">Contact</a><a href="https://www.inpursuithealth.com/">Home</a></div>
   </div>
   <div class="ft">The AI That Watches AI.™</div>
 </footer>
-
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script>
 // ═══ PRELOADER ═══
-// Dismiss preloader — don't wait for external scripts
-document.addEventListener('DOMContentLoaded',function(){setTimeout(function(){document.getElementById('preloader').classList.add('hidden');},900);});
 // Fallback in case DOMContentLoaded already fired
-if(document.readyState!=='loading'){setTimeout(function(){document.getElementById('preloader').classList.add('hidden');},900);}
 
 // ═══ HERO CANVAS — SHIELD MESH + DATA INTERCEPTION ═══
 (function(){
@@ -645,7 +599,7 @@ if(document.readyState!=='loading'){setTimeout(function(){document.getElementByI
 
   function spawn(){
     var side=Math.random()>.5;
-    streams.push({x:side?-20:W+20,y:cy+(Math.random()-.5)*H*.6,vx:side?(1.5+Math.random()*2):-(1.5+Math.random()*2),sz:2.5+Math.random()*3.5,a:.2+Math.random()*.3,hit:false,safe:Math.random()>.25,life:0,trail:[]});
+    streams.push({x:side?-20:W+20,y:cy+(Math.random()-.5)*H*.6,vx:side?(1.5+Math.random()*2):-(1.5+Math.random()*2),sz:2+Math.random()*3,a:.15+Math.random()*.25,hit:false,safe:Math.random()>.25,life:0,trail:[]});
   }
 
   function render(){
@@ -653,20 +607,20 @@ if(document.readyState!=='loading'){setTimeout(function(){document.getElementByI
 
     // Bg glow
     var bg=ctx.createRadialGradient(cx,cy,0,cx,cy,Math.max(W,H)*.6);
-    bg.addColorStop(0,'rgba(17,34,64,0.4)');bg.addColorStop(1,'rgba(6,14,26,0)');
+    bg.addColorStop(0,'rgba(17,34,64,0.3)');bg.addColorStop(1,'rgba(6,14,26,0)');
     ctx.fillStyle=bg;ctx.fillRect(0,0,W,H);
 
     // Hex grid
     var md=Math.sqrt(cx*cx+cy*cy);
     for(var i=0;i<hexs.length;i++){
       var h=hexs[i],nd=h.d/md,pulse=Math.sin(t*2+h.p)*.5+.5;
-      var alpha=(.08+pulse*.08)*(1-nd*.65);if(alpha<.005)continue;
-      hex(h.x,h.y,h.s);ctx.strokeStyle='rgba(197,164,78,'+alpha+')';ctx.lineWidth=.75;ctx.stroke();
+      var alpha=(.03+pulse*.04)*(1-nd*.7);if(alpha<.005)continue;
+      hex(h.x,h.y,h.s);ctx.strokeStyle='rgba(197,164,78,'+alpha+')';ctx.lineWidth=.6;ctx.stroke();
     }
 
     // Rings
     for(var r=0;r<4;r++){
-      var rad=120+r*100,ra=(.09+Math.sin(t+r)*.04)*(1-r*.18);
+      var rad=120+r*100,ra=(.04+Math.sin(t+r)*.02)*(1-r*.2);
       ctx.beginPath();ctx.arc(cx,cy,rad,0,Math.PI*2);
       ctx.strokeStyle='rgba(197,164,78,'+ra+')';ctx.lineWidth=.8;ctx.stroke();
     }
@@ -674,17 +628,17 @@ if(document.readyState!=='loading'){setTimeout(function(){document.getElementByI
     // Radar sweep
     ctx.save();ctx.translate(cx,cy);ctx.rotate(scan);
     var g=ctx.createLinearGradient(0,0,350,0);
-    g.addColorStop(0,'rgba(197,164,78,0.16)');g.addColorStop(1,'rgba(197,164,78,0)');
-    ctx.beginPath();ctx.moveTo(0,0);ctx.arc(0,0,400,-.18,.18);ctx.closePath();
+    g.addColorStop(0,'rgba(197,164,78,0.06)');g.addColorStop(1,'rgba(197,164,78,0)');
+    ctx.beginPath();ctx.moveTo(0,0);ctx.arc(0,0,350,-.15,.15);ctx.closePath();
     ctx.fillStyle=g;ctx.fill();ctx.restore();
 
     // Shield glow
     var sg=ctx.createRadialGradient(cx,cy,0,cx,cy,180);
-    sg.addColorStop(0,'rgba(197,164,78,0.06)');sg.addColorStop(.5,'rgba(197,164,78,0.025)');sg.addColorStop(1,'rgba(197,164,78,0)');
+    sg.addColorStop(0,'rgba(197,164,78,0.04)');sg.addColorStop(.5,'rgba(197,164,78,0.015)');sg.addColorStop(1,'rgba(197,164,78,0)');
     ctx.fillStyle=sg;ctx.fillRect(cx-200,cy-200,400,400);
 
     // Data streams
-    if(Math.random()<.05&&streams.length<18)spawn();
+    if(Math.random()<.03&&streams.length<15)spawn();
     for(var s=streams.length-1;s>=0;s--){
       var d=streams[s];d.x+=d.vx;d.life++;
       d.trail.push({x:d.x,y:d.y});if(d.trail.length>30)d.trail.shift();
@@ -709,7 +663,7 @@ if(document.readyState!=='loading'){setTimeout(function(){document.getElementByI
     }
 
     // Central barrier
-    var la=.12+Math.sin(t*3)*.05;
+    var la=.08+Math.sin(t*3)*.03;
     ctx.beginPath();ctx.moveTo(cx,cy-H*.35);ctx.lineTo(cx,cy+H*.35);
     ctx.strokeStyle='rgba(197,164,78,'+la+')';ctx.lineWidth=1.5;
     ctx.setLineDash([8,12]);ctx.stroke();ctx.setLineDash([]);
@@ -719,7 +673,7 @@ if(document.readyState!=='loading'){setTimeout(function(){document.getElementByI
     ctx.save();ctx.translate(cx,cy);ctx.beginPath();
     ctx.moveTo(0,-ss);ctx.bezierCurveTo(ss*.8,-ss*.6,ss,ss*.2,0,ss);
     ctx.bezierCurveTo(-ss,ss*.2,-ss*.8,-ss*.6,0,-ss);
-    ctx.strokeStyle='rgba(197,164,78,'+(0.22+Math.sin(t*2)*.08)+')';
+    ctx.strokeStyle='rgba(197,164,78,'+(0.15+Math.sin(t*2)*.05)+')';
     ctx.lineWidth=1.5;ctx.stroke();ctx.restore();
 
     requestAnimationFrame(render);
@@ -732,9 +686,11 @@ if(document.readyState!=='loading'){setTimeout(function(){document.getElementByI
 var obs=new IntersectionObserver(function(e){e.forEach(function(en){if(en.isIntersecting)en.target.classList.add('vis');});},{threshold:.1,rootMargin:'0px 0px -40px 0px'});
 document.querySelectorAll('.reveal').forEach(function(el){obs.observe(el);});
 
-// Smooth scroll
-document.querySelectorAll('a[href^="#"]').forEach(function(a){a.addEventListener('click',function(e){e.preventDefault();var t=docume
+
+// Fallback: if IntersectionObserver unsupported, reveal all
+try{ if(!('IntersectionObserver' in window)){ document.querySelectorAll('.reveal').forEach(function(el){el.classList.add('vis');}); } }catch(e){}
+
 </script>
-<script src="nav.js"></script>
+  <script src="nav.js"></script>
 </body>
 </html>
